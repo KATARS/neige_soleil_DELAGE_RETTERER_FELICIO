@@ -4,12 +4,12 @@ require("../bddconnect.php");
 
 if(isset($_POST['execute']))
 {
-	$_GET['email'] = ($_POST['email']);
-	$_GET['email2'] = ($_POST['email2']);
-	$_GET['nom'] = ($_POST['nom']);
-	$_GET['prenom'] = ($_POST['prenom']);
-	$_GET['tel'] = ($_POST['tel']);
-	$_GET['adresse'] = ($_POST['adresse']);
+	$_GET['email'] = iconv('UTF-8', 'ASCII//TRANSLIT', $_POST['email']);
+	$_GET['email2'] = iconv('UTF-8', 'ASCII//TRANSLIT', $_POST['email2']);
+	$_GET['nom'] = mb_strtoupper(preg_replace('#[^-\w]+#', '', iconv('UTF-8', 'ASCII//TRANSLIT', $_POST['nom'])));
+	$_GET['prenom'] = ucfirst(preg_replace('#[^-\w]+#', '', iconv('UTF-8', 'ASCII//TRANSLIT', $_POST['prenom'])));
+	$_GET['tel'] = preg_replace('#[^\w]#', '', $_POST['tel']);
+	$_GET['adresse'] = preg_replace('#[^-\w]+#', '', iconv('UTF-8', 'ASCII//TRANSLIT', $_POST['adresse']));
 	$_GET['mdp'] = sha1($_POST['mdp']);
 	$_GET['mdp2'] = sha1($_POST['mdp2']);
 
