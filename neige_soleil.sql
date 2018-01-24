@@ -3,7 +3,14 @@ create database neige_soleil;
         use neige_soleil;
 
 create table proprietaires(
-        id int(10) auto_increment  not null,
+        id int(10)   not null,
+        email varchar(50) not null,
+        mdp text not null,
+        nom    varchar (25),
+        prenom varchar (25),
+        tel    varchar (10),
+        adresse varchar (200),
+        status varchar(3),
         PRIMARY KEY (id))
 ENGINE=InnoDB;
 
@@ -39,12 +46,19 @@ ENGINE=InnoDB;
 
 create table clients(
         id int(10) not null,
+        email varchar(50) not null,
+        mdp text not null,
+        nom    varchar (25),
+        prenom varchar (25),
+        tel    varchar (10),
+        adresse varchar (200),
+        status varchar(3),
         idCat int(10),
         PRIMARY KEY (id))
 ENGINE=InnoDB;
 
 create table utilisateur(
-        id     int(10) auto_increment  not null,
+        id     int(10)  not null,
         email varchar(50) not null,
         mdp text not null,
         nom    varchar (25),
@@ -81,6 +95,13 @@ ENGINE=InnoDB;
 
 create table admin(
         id int(10) not null,
+        email varchar(50) not null,
+        mdp text not null,
+        nom    varchar (25),
+        prenom varchar (25),
+        tel    varchar (10),
+        adresse varchar (200),
+        status varchar(3),
         PRIMARY KEY (id))
 ENGINE=InnoDB;
 
@@ -131,3 +152,33 @@ ALTER TABLE concerner ADD CONSTRAint FK_concerner_idE FOREIGN KEY (idE) REFERENC
 ALTER TABLE concerner ADD CONSTRAint FK_concerner_numContrat FOREIGN KEY (numContrat) REFERENCES contrats(numContrat);
 ALTER TABLE correspondre ADD CONSTRAint FK_correspondre_numCL FOREIGN KEY (numCL) REFERENCES contrats_location(numCL);
 ALTER TABLE correspondre ADD CONSTRAint FK_correspondre_idE FOREIGN KEY (idE) REFERENCES equipements(idE);
+
+
+drop trigger if exists insertclient;
+delimiter //
+create trigger insertclient
+before insert on clients 
+for each row 
+begin 
+declare nu,na,np int;
+select count(*) into nu
+from utilisateur 
+where id=new.id;
+if nu=0
+then insert into utilisateur(id,email,mdp,nom,prenom,tel,adresse)
+values(new.id,new.email,new.mdp,new.nom,new.prenom,new.tel,new.adresse);
+end if;
+select count(*) into na
+from admin where id=new.id;
+if na>0
+then signal sqlstate'42000'
+set message_text='cet utilisateur est deja present dans la table admin';
+end if ;
+select count(*) into np
+from proprietaires where id=new.id;
+if np>0
+then signal sqlstate'42000'
+set message_text='cet utilisateur est deja present dans la table proprietaire';
+end if ;
+end //
+delimiter ;
