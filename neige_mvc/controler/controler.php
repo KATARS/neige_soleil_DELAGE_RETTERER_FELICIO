@@ -28,6 +28,19 @@
         die('Erreur : ' . $e->getMessage());
       }
     }
+    public function insertLogement($unLogement)
+    {
+      try
+      {
+        $tab= $unLogement->serialiserLogement();
+        $this->unModel->insertLogement($tab);
+        $this->unModel->insertLogement($unLogement);
+      }
+      catch (Exception $e)
+      {
+        die('Erreur : ' . $e->getMessage());
+      }
+    }
   }
 
 ?>

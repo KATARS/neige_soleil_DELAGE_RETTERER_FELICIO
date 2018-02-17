@@ -5,7 +5,9 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <title>Inscription</title>
   </head>
-  <body><center></br></br>
+  <body>
+    <center></br></br>
+      <h2> Inscription </h2></br>
     <form method ="post" action ="">
       <table>
         <tr>
@@ -50,7 +52,7 @@
           <td><input name="datebirth" type="date" required/></td>
         </tr>
         <tr>
-          <td><input type="hidden" name="satus" value="0">
+          <td><input type="hidden" name="status" value="0">
             <button type="reset" class="btn btn-warning" name="reset">Réinitialiser</button></td>
           <td><button type="submit" class="btn btn-success" name="valider">S'inscrire</button></td>
         </tr>
