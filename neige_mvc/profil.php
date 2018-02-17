@@ -14,21 +14,30 @@ include ("controler/user.class.php");
           <li class="nav-item">
             <a class="nav-link active" href="index.php">Accueil</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="index.php?page=1">Louez un bien</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="profil.php?page=2">Proposez un bien</a>
-          </li>
         </ul>
+    </br>
+    <h1>Espace Personnel</h1></br>
+    <p>Bienvenue dans votre espace personnel</p>
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link active" href="profil.php?page=1">Louer un bien</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="profil.php?page=2">Proposer un bien</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="profil.php">Profil</a>
+      </li>
+    </ul></br>
     <?php
     $page =(isset($_GET['page']))? $_GET['page'] :0 ;
     switch($page)
     {
       case 1:
-      $unControler= new Controler ("localhost","test","root","","user",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-
-      include("vu/vuconnection.php");
+      $unControler= new Controler ("localhost","test","root","","logement",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+      $resultats = $unControler->selectAll();
+      include("vu/vulogement.php");
+      break;
       break;
       case 2:
       $unControler= new Controler ("localhost","test","root","","logement",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));

@@ -16,3 +16,14 @@ create table user (
   datebirth date,
   status int(1) default 0,
   primary key (id));
+
+create table logement (
+  id int auto_increment not null,
+  titre text,
+  emplacement text,
+  etage text,
+  prix text,
+  taille text,
+  type text,
+  caracteristique text,
+  primary key (id));

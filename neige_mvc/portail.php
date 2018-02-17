@@ -39,13 +39,13 @@ include ("controler/user.class.php");
       break;
       case 2:
       $unControler= new Controler ("localhost","test","root","","user",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-      include("vu/vuinsert.php");
+      include("vu/vuinscription.php");
       if(isset($_POST['valider']))
       {
         // insertion d'un nouvel eleve
         $unUser = new User ();
         $unUser->renseigner($_POST);
-        $unControler->insert ($unUser);
+        $unControler->insert($unUser);
         echo "insertion réussie";
       }
       break;

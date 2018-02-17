@@ -1,41 +1,38 @@
 <?php
   class Logement
   {
-    private $titre,$emplacement;
+    private $titre,$emplacement,$etage,$prix,$taille,$type,$caracteristique;
 
     public function __construct()
     {
       $this->titre="";
       $this->emplacement="";
-      /*$this->type="";
-      $this->taille= "";
       $this->etage="";
+      $this->prix="";
+      $this->taille= "";
+      $this->type="";
       $this->caracteristique="";
-      $this->photos="";
-      $this->prix="";*/
     }
     public function renseignerLogement ($tab) //recupere donnees
     {
       $this->titre= $tab["titre"];
       $this->emplacement= $tab["emplacement"];
-      /*$this->type= $tab["type"];
-      $this->taille= $tab["taille"];
       $this->etage= $tab["etage"];
+      $this->prix= $tab["prix"];
+      $this->taille= $tab["taille"];
+      $this->type= $tab["type"];
       $this->caracteristique= $tab["caracteristique"];
-      $this->photos= $tab["photos"];
-      $this->prix= $tab["prix"];*/
     }
     public function serialiserLogement () //serialisation
     {
       $tab = array();
-      $tab["titre"]= iconv('UTF-8', 'ASCII//TRANSLIT', ($this->titre));
-      $tab["emplacement"]= iconv('UTF-8', 'ASCII//TRANSLIT', ($this->emplacement));
-      /*$tab["type"] = iconv('UTF-8', 'ASCII//TRANSLIT', ($this->type));
-      $tab["taille"]= iconv('UTF-8', 'ASCII//TRANSLIT', ($this->taille));
-      $tab["etage"] = iconv('UTF-8', 'ASCII//TRANSLIT', ($this->etage));
-      $tab["caracteristique"]= iconv('UTF-8', 'ASCII//TRANSLIT', ($this->caracteristique));
-      $tab["photos"]= iconv('UTF-8', 'ASCII//TRANSLIT', ($this->photos));
-      $tab["prix"]= iconv('UTF-8', 'ASCII//TRANSLIT', ($this->prix));*/
+      $tab["titre"]= $this->titre;
+      $tab["emplacement"]= $this->emplacement;
+      $tab["etage"] = $this->etage;
+      $tab["prix"]= $this->prix;
+      $tab["taille"]= $this->taille;
+      $tab["type"] = $this->type;
+      $tab["caracteristique"]= $this->caracteristique;
       return $tab;
     }
 
@@ -56,13 +53,21 @@
     {
       $this->emplacement=$emplacement;
     }
-    /*public function getType()
+    public function getEtage()
     {
-      return $this->type;
+      return $this->etage;
     }
-    public function setType($type)
+    public function setEtage($etage)
     {
-      $this->type=$type;
+      $this->etage=$etage;
+    }
+    public function getPrix()
+    {
+      return $this->prix;
+    }
+    public function setPrix($prix)
+    {
+      $this->prix=$prix;
     }
     public function getTaille()
     {
@@ -72,13 +77,13 @@
     {
       $this->taille=$taille;
     }
-    public function getEtage()
+    public function getType()
     {
-      return $this->etage;
+      return $this->type;
     }
-    public function setEtage($etage)
+    public function setType($type)
     {
-      $this->etage=$etage;
+      $this->type=$type;
     }
     public function getCaracteristique()
     {
@@ -88,21 +93,5 @@
     {
       $this->caracteristique=$caracteristique;
     }
-    public function getPhotos()
-    {
-      return $this->photos;
-    }
-    public function setPhotos($photos)
-    {
-      $this->photos=$photos;
-    }
-    public function getPrix()
-    {
-      return $this->prix;
-    }
-    public function setPrix($prix)
-    {
-      $this->prix=$prix;
-    }*/
   }
  ?>
