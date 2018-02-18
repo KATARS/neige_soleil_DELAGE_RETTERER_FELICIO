@@ -13,7 +13,7 @@
       $this->type="";
       $this->caracteristique="";
     }
-    public function renseignerLogement ($tab) //recupere donnees
+    public function renseigner($tab) //recupere donnees
     {
       $this->titre= $tab["titre"];
       $this->emplacement= $tab["emplacement"];
@@ -23,7 +23,7 @@
       $this->type= $tab["type"];
       $this->caracteristique= $tab["caracteristique"];
     }
-    public function serialiserLogement () //serialisation
+    public function serialiser() //serialisation
     {
       $tab = array();
       $tab["titre"]= $this->titre;

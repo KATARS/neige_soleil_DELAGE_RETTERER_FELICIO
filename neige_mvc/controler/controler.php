@@ -1,40 +1,27 @@
 <?php
   include ("./model/model.php");
   class Controler{
-    private $unModel;
+    private $Model;
     public function __construct ($server,$bdd,$user,$mdp,$table){
-      $this->unModel = new Model ($server,$bdd,$user,$mdp);
-      $this->unModel->setTable($table);
+      $this->Model = new Model ($server,$bdd,$user,$mdp);
+      $this->Model->setTable($table);
     }
     public function selectAll(){
-      if ($this ->unModel->getPdo() != null) {
-      return $this -> unModel->selectAll();
+      if ($this ->Model->getPdo() != null) {
+      return $this -> Model->selectAll();
       }
       else {
         return null;
       }
 
     }
-    public function insert($unUser)
+    public function insert($insert)
     {
       try
       {
-        $tab= $unUser->serialiser();
-        $this->unModel->insert($tab);
-        $this->unModel->insert($unUser);
-      }
-      catch (Exception $e)
-      {
-        die('Erreur : ' . $e->getMessage());
-      }
-    }
-    public function insertLogement($unLogement)
-    {
-      try
-      {
-        $tab= $unLogement->serialiserLogement();
-        $this->unModel->insertLogement($tab);
-        $this->unModel->insertLogement($unLogement);
+        $tab= $insert->serialiser();
+        $this->Model->insert($tab);
+        $this->Model->insert($insert);
       }
       catch (Exception $e)
       {

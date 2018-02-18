@@ -53,27 +53,6 @@
           $insert->execute($donnees);
       }
     }
-    public function insertLogement($donnee)
-    {
-      if($this->pdo != null)
-      {
-        $donnees = array();
-        $champs = array();
-        //Construction des champs
-        foreach($donnee as $cle => $valeur)
-        {
-            $champs[] = ":".$cle;
-            $donnees[":".$cle] = $valeur;
-        }
-        //explode : sépare une chaine de caractère en tableau
-        //implode : concatène un tableau
-        $listeChamps = implode(",", $champs);
-        $requete = "INSERT INTO ".$this->table." VALUES (null,".$listeChamps.");";
-
-        $insert = $this->pdo->prepare($requete);
-        $insert->execute($donnees);
-      }
-    }
     public function getPdo()
     {
         return $this->pdo;

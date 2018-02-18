@@ -33,19 +33,22 @@ include ("controler/user.class.php");
     switch($page)
     {
       case 1:
-      $unControler= new Controler ("localhost","test","root","","user",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-
+      $controler= new Controler ("localhost","test","root","","user",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
       include("vu/vuconnection.php");
+      if(isset($_POST['valider']))
+      {
+        
+      }
       break;
       case 2:
-      $unControler= new Controler ("localhost","test","root","","user",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+      $controler= new Controler ("localhost","test","root","","user",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
       include("vu/vuinscription.php");
       if(isset($_POST['valider']))
       {
         // insertion d'un nouvel eleve
-        $unUser = new User ();
-        $unUser->renseigner($_POST);
-        $unControler->insert($unUser);
+        $insert = new User ();
+        $insert->renseigner($_POST);
+        $controler->insert($insert);
         echo "insertion réussie";
       }
       break;

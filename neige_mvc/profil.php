@@ -34,21 +34,22 @@ include ("controler/user.class.php");
     switch($page)
     {
       case 1:
-      $unControler= new Controler ("localhost","test","root","","logement",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-      $resultats = $unControler->selectAll();
+      $controler= new Controler ("localhost","test","root","","logement",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+      $resultats = $controler->selectAll();
       include("vu/vulogement.php");
       break;
       break;
       case 2:
-      $unControler= new Controler ("localhost","test","root","","logement",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+      $controler= new Controler ("localhost","test","root","","logement",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
       include("vu/vuinsertlogement.php");
       if(isset($_POST['valider']))
       {
         // insertion d'un nouvel eleve
-        $unLogement = new Logement ();
-        $unLogement->renseignerLogement($_POST);
-        $unControler->insertLogement($unLogement);
+        $insert = new Logement ();
+        $insert->renseigner($_POST);
+        $controler->insert($insert);
         echo "insertion réussie";
+
       }
       break;
     }

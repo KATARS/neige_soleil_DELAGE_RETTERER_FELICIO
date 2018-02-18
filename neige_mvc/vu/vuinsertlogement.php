@@ -6,7 +6,7 @@
     <title>Ajoutez votre bien</title>
   </head>
   <body><center>
-    <h3>Ajoutez un bien à notre catalogue</h3>
+    <h3>Ajoutez un bien à notre catalogue</h3></br>
     <form method ="post" action ="">
       <table>
         <tr>
@@ -31,7 +31,7 @@
         </tr>
         <tr>
           <td><label for="type">Type :</label></td>
-          <td><select class="custom-select" name="type">
+          <td><select class="custom-select" name="type" required>
             <option selected>Selectionnez un type</option>
               <option value="Appartement">Appartement</option>
               <option value="Chalet">Chalet</option>
@@ -40,11 +40,16 @@
         </tr>
         <tr>
           <td><label for="caracteristique">Caractéristiques: </label></td>
-          <td><textarea name="caracteristique" rows="4" cols="30"></textarea></td>
+          <td><textarea name="caracteristique" rows="4" cols="30" required></textarea></td>
         </tr>
         <tr>
-          <td>
-            <button type="reset" class="btn btn-warning" name="reset">Réinitialiser</button></td>
+          <td></td>
+          <td><div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
+            <label class="custom-control-label" for="customControlValidation1">Accepter les CGU et créer un contrat</label></td>
+        </tr>
+        <tr>
+          <td><button type="reset" class="btn btn-warning" name="reset">Réinitialiser</button></td>
           <td><button type="submit" class="btn btn-success" name="valider">Ajouter</button></td>
         </tr>
       </table>
