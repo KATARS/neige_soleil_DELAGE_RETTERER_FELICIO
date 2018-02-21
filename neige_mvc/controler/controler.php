@@ -32,7 +32,7 @@
     {
       try
       {
-        $tab = $connexion->serialiser();
+        $tab= $connexion->serialiserC();
         $this->Model->connexion($tab);
         $this->Model->connexion($connexion);
       }

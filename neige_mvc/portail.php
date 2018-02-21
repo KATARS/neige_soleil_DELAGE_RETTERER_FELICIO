@@ -33,7 +33,7 @@ include ("controler/user.class.php");
     switch($page)
     {
       case 1:
-      $controler= new Controler ("localhost","test","root","","user");
+      $controler= new Controler ("localhost","test","root","","user",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
       include("vu/vuconnection.php");
       if(isset($_POST['validerconnect']))
       {

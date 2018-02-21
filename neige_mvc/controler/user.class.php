@@ -38,7 +38,7 @@
       $tab["nom"] = mb_strtoupper($this->nom);
       $tab["prenom"]= ucfirst($this->prenom);
       $tab["email"]= $this->email;
-      $tab["password"] = password_hash($this->password , PASSWORD_DEFAULT);
+      $tab["password"] = $this->password;
       $tab["civilite"]= $this->civilite;
       $tab["adresse"]= $this->adresse;
       $tab["ville"]= $this->ville;
@@ -48,12 +48,19 @@
       $tab["status"]= $this->status;
       return $tab;
     }
-    public function login ($tab) //recupere donnees
+    public function serialiserC () //serialisation
     {
-      $this->email= $tab["email"];
-      $this->password= $tab["password"];
+      $tab = array();
+      $tab["email"]= $this->email;
+      $tab["password"] = $this->password;
+      return $tab;
     }
-    //setters & getters
+    public function login($tab) //recupere donnees
+    {
+      $this->email= $tab['email'];
+      $this->password= $tab['password'];
+    }
+    //setters & getterss
     public function getNom()
     {
       return $this->nom;

@@ -1,7 +1,7 @@
 <?php
   class Model
   {
-    private $pdo, $table;
+    private $pdo, $table, $id;
 
     public function __construct($serveur, $bdd, $user, $mdp)
     {
@@ -36,42 +36,60 @@
     {
       if($this->pdo != null)
       {
-          $donnees = array();
-          $champs = array();
-          //Construction des champs
-          foreach($donnee as $cle => $valeur)
-          {
-              $champs[] = ":".$cle;
-              $donnees[":".$cle] = $valeur;
-          }
-          //explode : sépare une chaine de caractère en tableau
-          //implode : concatène un tableau
-          $listeChamps = implode(",", $champs);
-          $requete = "INSERT INTO ".$this->table." VALUES (null,".$listeChamps.");";
+        $donnees = array();
+        $champs = array();
+        //Construction des champs
+        foreach($donnee as $cle => $valeur)
+        {
+            $champs[] = ":".$cle;
+            $donnees[":".$cle] = $valeur;
+        }
+        //explode : sépare une chaine de caractère en tableau
+        //implode : concatène un tableau
+        $listeChamps = implode(",", $champs);
+        $requete = "INSERT INTO ".$this->table." VALUES (null,".$listeChamps.");";
 
-          $insert = $this->pdo->prepare($requete);
-          $insert->execute($donnees);
+        $insert = $this->pdo->prepare($requete);
+        $insert->execute($donnees);
       }
     }
-    public function connexion($tab)
+    public function connexion($data)
     {
-      $email = $_POST['email'];
-      $password = $_POST['password'];
-  		$req = "SELECT * FROM ".$this->table." WHERE email = $email AND password = $password";
-  		$connexion = $this->pdo->prepare($req);
-      $connexion->execute();
-  		$userexist = $req->rowCount();
-  		if($userexist == 1)
-  		{
-  			$donnees = $req->fetch();
-  			$_SESSION['id'] = $donnees['id'];
-  			$_SESSION['email'] = $donnees['email'];
-  			header("Location: ./profil.php?id=".$_SESSION['id']);
-  		}
+      if($this->pdo != null)
+      {
+        $datas = array();
+        $rows = array();
+        //Construction des champs
+        foreach($data as $key => $value)
+        {
+            $rows[] = ":".$key;
+            $datas[":".$key] = $value;
+        }
+        //explode : sépare une chaine de caractère en tableau
+        //implode : concatène un tableau
+        $rowlist = implode(" AND ", $rows);
+
+  	    $req = "SELECT * FROM ".$this->table." WHERE email AND password = ".$rowlist.";";
+        echo ".$req.";
+        $connexion = $this->pdo->prepare($req);
+        $connexion->execute($datas);
+    		$userexist = $connexion->rowCount(); echo "Bug"; die;
+    		if($userexist == 1)
+    		{
+    			$data = $req->fetch();
+    			$_SESSION['id'] =  $data['id'];
+    			$_SESSION['email'] = $data['email'];
+    			header("Location: ./profil.php?id=".$_SESSION['id']);
+        }
+      }
   		else
   		{
   			echo "Identifiants inconnus !";
   		}
+    }
+    public function getId()
+    {
+      return $this->id;
     }
     public function getPdo()
     {
