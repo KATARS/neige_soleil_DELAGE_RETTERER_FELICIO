@@ -53,6 +53,26 @@
           $insert->execute($donnees);
       }
     }
+    public function connexion($tab)
+    {
+      $email = $_POST['email'];
+      $password = $_POST['password'];
+  		$req = "SELECT * FROM ".$this->table." WHERE email = $email AND password = $password";
+  		$connexion = $this->pdo->prepare($req);
+      $connexion->execute();
+  		$userexist = $req->rowCount();
+  		if($userexist == 1)
+  		{
+  			$donnees = $req->fetch();
+  			$_SESSION['id'] = $donnees['id'];
+  			$_SESSION['email'] = $donnees['email'];
+  			header("Location: ./profil.php?id=".$_SESSION['id']);
+  		}
+  		else
+  		{
+  			echo "Identifiants inconnus !";
+  		}
+    }
     public function getPdo()
     {
         return $this->pdo;

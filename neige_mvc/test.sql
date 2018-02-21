@@ -4,9 +4,9 @@ create database test;
 
 create table user (
   id int auto_increment not null,
-  nom text,
+  nom varchar(100),
   prenom text,
-  email text,
+  email varchar(150),
   password text,
   civilite enum("Mr","Mme"),
   adresse text,
@@ -15,10 +15,11 @@ create table user (
   tel varchar(12),
   datebirth date,
   status int(1) default 0,
+  UNIQUE (email),
   primary key (id));
 
 create table logement (
-  id int auto_increment not null,
+  idlogement int auto_increment,
   titre text,
   emplacement text,
   etage text,
@@ -26,4 +27,6 @@ create table logement (
   taille text,
   type text,
   caracteristique text,
-  primary key (id));
+  id int not null,
+  primary key (idlogement),
+  foreign key (id) references user(id));

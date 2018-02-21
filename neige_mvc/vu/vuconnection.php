@@ -21,7 +21,7 @@
         <tr>
           <td>
             <button type="reset" class="btn btn-warning" name="reset">Réinitialiser</button></td>
-          <td><button type="submit" class="btn btn-primary" name="valider">Se Connecter</button></td>
+          <td><button type="submit" class="btn btn-primary" name="validerconnect">Se Connecter</button></td>
         </tr>
       </table>
   </center></body>

@@ -28,6 +28,19 @@
         die('Erreur : ' . $e->getMessage());
       }
     }
+    public function connexion($connexion)
+    {
+      try
+      {
+        $tab = $connexion->serialiser();
+        $this->Model->connexion($tab);
+        $this->Model->connexion($connexion);
+      }
+      catch (Exception $e)
+      {
+        die('Erreur : ' . $e->getMessage());
+      }
+    }
   }
 
 ?>

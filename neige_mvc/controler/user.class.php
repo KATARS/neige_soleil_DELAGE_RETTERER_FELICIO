@@ -23,7 +23,7 @@
       $this->nom= $tab["nom"];
       $this->prenom= $tab["prenom"];
       $this->email= $tab["email"];
-      $this->passeword= $tab["password"];
+      $this->password= $tab["password"];
       $this->civilite= $tab["civilite"];
       $this->adresse= $tab["adresse"];
       $this->ville= $tab["ville"];
@@ -35,20 +35,24 @@
     public function serialiser () //serialisation
     {
       $tab = array();
-      $tab["nom"] = mb_strtoupper(iconv('UTF-8', 'ASCII//TRANSLIT', ($this->nom)));
-      $tab["prenom"]= ucfirst(iconv('UTF-8', 'ASCII//TRANSLIT', ($this->prenom)));
-      $tab["email"]= iconv('UTF-8', 'ASCII//TRANSLIT', ($this->email));
+      $tab["nom"] = mb_strtoupper($this->nom);
+      $tab["prenom"]= ucfirst($this->prenom);
+      $tab["email"]= $this->email;
       $tab["password"] = password_hash($this->password , PASSWORD_DEFAULT);
-      $tab["civilite"]= iconv('UTF-8', 'ASCII//TRANSLIT', ($this->civilite));
-      $tab["adresse"]= iconv('UTF-8', 'ASCII//TRANSLIT', ($this->adresse));
-      $tab["ville"]= iconv('UTF-8', 'ASCII//TRANSLIT', ($this->ville));
-      $tab["cp"]= iconv('UTF-8', 'ASCII//TRANSLIT', ($this->cp));
-      $tab["tel"]= iconv('UTF-8', 'ASCII//TRANSLIT', ($this->tel));
+      $tab["civilite"]= $this->civilite;
+      $tab["adresse"]= $this->adresse;
+      $tab["ville"]= $this->ville;
+      $tab["cp"]= $this->cp;
+      $tab["tel"]= $this->tel;
       $tab["datebirth"]= $this->datebirth;
       $tab["status"]= $this->status;
       return $tab;
     }
-
+    public function login ($tab) //recupere donnees
+    {
+      $this->email= $tab["email"];
+      $this->password= $tab["password"];
+    }
     //setters & getters
     public function getNom()
     {

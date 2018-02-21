@@ -33,11 +33,13 @@ include ("controler/user.class.php");
     switch($page)
     {
       case 1:
-      $controler= new Controler ("localhost","test","root","","user",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+      $controler= new Controler ("localhost","test","root","","user");
       include("vu/vuconnection.php");
-      if(isset($_POST['valider']))
+      if(isset($_POST['validerconnect']))
       {
-        
+        $connexion = new User ();
+        $connexion->login($_POST);
+        $controler->connexion($connexion);
       }
       break;
       case 2:
@@ -49,7 +51,6 @@ include ("controler/user.class.php");
         $insert = new User ();
         $insert->renseigner($_POST);
         $controler->insert($insert);
-        echo "insertion réussie";
       }
       break;
     }
