@@ -12,6 +12,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 		<h2>Liste membres</h2></br>
 		<table border="2">
 			<tr>
+				<td>ID</td>
 				<td>Civilite</td>
 				<td>Nom</td>
 				<td>Prenom</td>
@@ -22,13 +23,13 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 				<td>Téléphone</td>
 				<td>Date Naissance</td>
 				<td>Date Inscription</td>
-				<td>Id</td>
 				<td>Status</td>
 			</tr>
 			<?php
 			while ($data = $reponse->fetch())
 			{
-				echo "<tr><td>".$data['civilite']."</td>";
+				echo "<tr><td>".$data['id']."</td>";
+				echo "<td>".$data['civilite']."</td>";
 				echo "<td>".$data['nom']."</td>";
 				echo "<td>".$data['prenom']."</td>";
 				echo "<td>".$data['email']."</td>";
@@ -38,12 +39,25 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 				echo "<td>".$data['tel']."</td>";
 				echo "<td>".$data['datebirth']."</td>";
 				echo "<td>".$data['createdate']."</td>";
-				echo "<td>".$data['id']."</td>";
 				echo "<td>".$data['status']."</td></tr>";
 			}
 			$reponse->closeCursor();
+			if(isset($_POST['delete']))
+			{
+				$id = $_POST['id'];
+				$update = $bdd->prepare("DELETE FROM user WHERE id = ?");
+				$update->bindValue(1, $id, PDO::PARAM_INT);
+				$update->execute();
+				echo "<h6>Reussie</h6>";
+			}
 			?>
-		</table>
+		</table></br>
+		<p>Pour effectuer une action sur un utilisateur,</br>Veuillez renseigner son ID</p>
+		<form class="" action="" method="post">
+			<label for="id">Renseigner ID</label>
+			<input type="text" name="id" value="" pattern="^[_0-9]{1,}$" minlength="1" maxlength="5"required></br>
+			<button type="submit" class="btn btn-danger" name="delete">Supprimer</button>
+		</form>
 	</center>
 	<?php
 	}
