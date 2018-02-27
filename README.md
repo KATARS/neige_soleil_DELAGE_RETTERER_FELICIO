@@ -11,6 +11,7 @@ Projet Neige & Soleil
     - Connection 100%
     - Demande de status 100%
     - Ajout logement 100%
+    - Contrat 99% -> Tenter : ajouter id logement
     - Droit d'acces 100%
     - "Mes reservations" 0%
  - Reservation 0%
