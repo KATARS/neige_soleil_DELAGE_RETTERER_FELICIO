@@ -21,7 +21,7 @@ create table user (
 
 create table logement (
   idlogement int auto_increment,
-  titre text,
+  titre varchar(150),
   emplacement text,
   etage text,
   prix text,
@@ -40,11 +40,21 @@ create table type (
   nom text,
   primary key (idtype));
 
+create table contrat_logement (
+  idcontrat int auto_increment,
+  id int,
+  titre varchar(150),
+  createdate date,
+  primary key (idcontrat),
+  foreign key (id) references user (id),
+  foreign key (titre) references logement (titre));
+
 create table request (
   idreq int auto_increment,
   createdate date,
   id int,
   email varchar(150),
+  validation text,
   primary key (idreq),
   foreign key (id) references user(id),
   foreign key (email) references user(email));
