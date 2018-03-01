@@ -16,8 +16,20 @@ create table user (
   datebirth date,
   status int(1) default 0,
   createdate date,
+  idreservation int,
   UNIQUE (email),
-  primary key (id));
+  primary key (id),
+  foreign key (idreservation) references reservation(idreservation));
+
+create table reservation (
+  idreservation int auto_increment,
+  datearr date,
+  datedep date,
+  id int,
+  idlogement int,
+  primary key (idreservation),
+  foreign key (id) references user (id),
+  foreign key (idlogement) references logement (idlogement));
 
 create table logement (
   idlogement int auto_increment,
@@ -31,8 +43,11 @@ create table logement (
   id int ,
   photo text,
   createdate date,
+  status enum("valide","invalide","en attente") DEFAULT 'en attente',
+  idreservation int,
   primary key (idlogement),
   foreign key (id) references user(id),
+  foreign key (idreservation) references reservation(idreservation),
   foreign key (idtype) references type (idtype));
 
 create table type (
@@ -48,14 +63,24 @@ create table contrat_logement (
   primary key (idcontrat),
   foreign key (id) references user (id),
   foreign key (titre) references logement (titre));
-
-create table request (
-  idreq int auto_increment,
+  
+create table requestuser (
+  idrequ int auto_increment,
   createdate date,
   id int,
   email varchar(150),
-  validation text,
-  primary key (idreq),
+  status enum('En attente','Valider','Refuser') DEFAULT 'En attente',
+  primary key (idrequ),
+  foreign key (id) references user(id),
+  foreign key (email) references user(email));
+  
+  create table requestlogement (
+  idreql int auto_increment,
+  createdate date,
+  id int,
+  email varchar(150),
+  status enum('En attente','Valide','Invalide') DEFAULT 'En attente',
+  primary key (idreql),
   foreign key (id) references user(id),
   foreign key (email) references user(email));
 
@@ -63,3 +88,52 @@ INSERT INTO type(idtype,nom) VALUES
   (1,"Appartement"),
   (2,"Chalet"),
   (3,"Maison");
+  
+drop trigger if exists updateuser ;
+delimiter // 
+create trigger updateuser
+after update on requestuser 
+for each row 
+begin 
+declare valide text ;
+select status into valide
+from requestuser,user where requestuser.id=user.id ;
+if valide='Valider'
+then 
+update user 
+set status='1'
+where id=old.id ;
+end if;
+if valide='Refuser'
+then 
+update user 
+set status='0'
+where id=old.id ;
+end if ;
+end //
+delimiter ;
+
+
+drop trigger if exists propositionlogement;
+delimiter //
+create trigger propositionlogement
+after update on requestlogement
+for each row 
+begin 
+declare validite text ;
+select status into valide
+from requestlogement,logement where requestlogement.id=logement.id ;
+if validite='Valider'
+then 
+update logement 
+set status='Valider'
+where id=old.id ;
+end if;
+if validite='Invalide'
+then 
+update logement 
+set status='Invalide'
+where id=old.id ;
+end if ;
+end //
+delimiter ;
