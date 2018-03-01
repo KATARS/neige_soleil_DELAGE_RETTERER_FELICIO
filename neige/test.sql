@@ -43,7 +43,7 @@ create table logement (
   id int ,
   photo text,
   createdate date,
-  status enum("valide","invalide","en attente"),
+  status enum("valide","invalide","en attente") DEFAULT 'en attente',
   idreservation int,
   primary key (idlogement),
   foreign key (id) references user(id),
