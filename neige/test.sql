@@ -16,8 +16,20 @@ create table user (
   datebirth date,
   status int(1) default 0,
   createdate date,
+  idreservation int,
   UNIQUE (email),
-  primary key (id));
+  primary key (id),
+  foreign key (idreservation) references reservation(idreservation));
+
+create table reservation (
+  idreservation int auto_increment,
+  datearr date,
+  datedep date,
+  id int,
+  idlogement int,
+  primary key (idreservation),
+  foreign key (id) references user (id),
+  foreign key (idlogement) references logement (idlogement));
 
 create table logement (
   idlogement int auto_increment,
@@ -31,8 +43,11 @@ create table logement (
   id int ,
   photo text,
   createdate date,
+  status enum("valide","invalide","en attente"),
+  idreservation int,
   primary key (idlogement),
   foreign key (id) references user(id),
+  foreign key (idreservation) references reservation(idreservation),
   foreign key (idtype) references type (idtype));
 
 create table type (
@@ -54,7 +69,7 @@ create table request (
   createdate date,
   id int,
   email varchar(150),
-  validation text,
+  status enum("en attente","valider","refuser"),
   primary key (idreq),
   foreign key (id) references user(id),
   foreign key (email) references user(email));
