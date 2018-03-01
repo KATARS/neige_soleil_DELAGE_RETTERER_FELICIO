@@ -122,7 +122,7 @@ for each row
 begin 
 declare validite text ;
 select status into valide
-from requestlogement,user where requestlogement.id=logement.id ;
+from requestlogement,logement where requestlogement.id=logement.id ;
 if validite='Valider'
 then 
 update logement 
