@@ -63,14 +63,24 @@ create table contrat_logement (
   primary key (idcontrat),
   foreign key (id) references user (id),
   foreign key (titre) references logement (titre));
-
-create table request (
-  idreq int auto_increment,
+  
+create table requestuser (
+  idrequ int auto_increment,
   createdate date,
   id int,
   email varchar(150),
-  status enum("En attente","Valider","Refuser") DEFAULT 'En attente',
-  primary key (idreq),
+  status enum('En attente','Valider','Refuser') DEFAULT 'En attente',
+  primary key (idrequ),
+  foreign key (id) references user(id),
+  foreign key (email) references user(email));
+  
+  create table requestlogement (
+  idreql int auto_increment,
+  createdate date,
+  id int,
+  email varchar(150),
+  status enum('En attente','Valide','Invalide') DEFAULT 'En attente',
+  primary key (idreql),
   foreign key (id) references user(id),
   foreign key (email) references user(email));
 
@@ -82,12 +92,12 @@ INSERT INTO type(idtype,nom) VALUES
 drop trigger if exists updateuser ;
 delimiter // 
 create trigger updateuser
-after update on request 
+after update on requestuser 
 for each row 
 begin 
 declare valide text ;
-select validation into valide
-from request,user where request.id=user.id ;
+select status into valide
+from requestuser,user where requestuser.id=user.id ;
 if valide='Valider'
 then 
 update user 
@@ -98,6 +108,31 @@ if valide='Refuser'
 then 
 update user 
 set status='0'
+where id=old.id ;
+end if ;
+end //
+delimiter ;
+
+
+drop trigger if exists propositionlogement;
+delimiter //
+create trigger propositionlogement
+after update on requestlogement
+for each row 
+begin 
+declare validite text ;
+select status into valide
+from requestlogement,user where requestlogement.id=logement.id ;
+if validite='Valider'
+then 
+update logement 
+set status='Valider'
+where id=old.id ;
+end if;
+if validite='Invalide'
+then 
+update logement 
+set status='Invalide'
 where id=old.id ;
 end if ;
 end //
