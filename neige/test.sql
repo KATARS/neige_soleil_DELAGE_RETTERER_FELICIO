@@ -69,7 +69,7 @@ create table request (
   createdate date,
   id int,
   email varchar(150),
-  status enum("en attente","valider","refuser"),
+  status enum("En attente","Valider","Refuser") DEFAULT 'En attente',
   primary key (idreq),
   foreign key (id) references user(id),
   foreign key (email) references user(email));
@@ -78,3 +78,27 @@ INSERT INTO type(idtype,nom) VALUES
   (1,"Appartement"),
   (2,"Chalet"),
   (3,"Maison");
+  
+drop trigger if exists updateuser ;
+delimiter // 
+create trigger updateuser
+after update on request 
+for each row 
+begin 
+declare valide text ;
+select validation into valide
+from request,user where request.id=user.id ;
+if valide='Valider'
+then 
+update user 
+set status='1'
+where id=old.id ;
+end if;
+if valide='Refuser'
+then 
+update user 
+set status='0'
+where id=old.id ;
+end if ;
+end //
+delimiter ;
