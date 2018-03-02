@@ -55,11 +55,9 @@ if(isset($_POST['executeconnect'])) //submit
 	      <td><label for="password">Mot de passe : </label></td>
 	      <td><input type="password" name="password" value="" required></td>
 	    </tr>
-	    <tr>
-	      <td>
-	        <button type="reset" class="btn btn-warning" name="reset">Réinitialiser</button></td>
-	      <td><button type="submit" class="btn btn-primary" name="executeconnect">Se Connecter</button></td>
-	    </tr>
-	  </table>
+		</table>
+		</br>
+	  	<button type="reset" class="btn btn-warning" name="reset">Réinitialiser</button>
+	    <button type="submit" class="btn btn-primary" name="executeconnect">Se Connecter</button>
 	</form>
 </center>

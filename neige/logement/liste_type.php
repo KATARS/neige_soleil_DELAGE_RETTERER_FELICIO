@@ -12,9 +12,17 @@ require("bddconnect.php");
 		<title>Liste</title>
 	</head>
 	<body>
-	<br/><br/><br/><br/>
-		<h1>Catégories</h1>
-		<br/><br/><br/>
+		<h1>Neige & Soleil</h1></br>
+			<ul class="nav justify-content-center">
+				<li class="nav-item">
+					<a class="nav-link active" href="index.php">Accueil</a>
+				</li>
+			</ul>
+		</br>
+		<p>Vous souhaitez voyager du <?php echo htmlspecialchars($_SESSION['datearr']); ?>
+		au <?php echo htmlspecialchars($_SESSION['datedep']); ?>.</br>
+		Nous allons vous proposer tout nos biens disponibles pour cette periode</p>
+		<h1>Catégories</h1></br>
 		<?php
 		while ($donnees = $reponse->fetch())
 		{
@@ -22,5 +30,8 @@ require("bddconnect.php");
 		}
 		$reponse->closeCursor();
 		?>
+		</div>
+		<div class="p-2"></div>
+	</div>
 	</body>
 </html>
