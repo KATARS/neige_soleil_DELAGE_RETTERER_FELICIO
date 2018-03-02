@@ -121,19 +121,19 @@ after update on requestlogement
 for each row 
 begin 
 declare validite text ;
-select status into valide
+select requestlogement.status into validite
 from requestlogement,logement where requestlogement.id=logement.id ;
-if validite='Valider'
+if validite='Valide'
 then 
 update logement 
-set status='Valider'
-where id=old.id ;
+set logement.status='Valide'
+where logement.id=old.id ;
 end if;
 if validite='Invalide'
 then 
 update logement 
-set status='Invalide'
-where id=old.id ;
+set logement.status='Invalide'
+where logement.id=old.id ;
 end if ;
 end //
 delimiter ;
