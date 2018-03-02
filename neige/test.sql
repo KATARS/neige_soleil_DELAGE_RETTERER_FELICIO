@@ -97,7 +97,7 @@ drop trigger if exists updateuser;
   begin
   declare valide text ;
   select requestuser.status into valide
-  from requestuser,user where requestuser.id=user.id ;
+  from requestuser where requestuser.id=old.id ;
   if valide='Valider'
   then
   update user
@@ -122,7 +122,7 @@ for each row
 begin 
 declare validite text ;
 select requestlogement.status into validite
-from requestlogement,logement where requestlogement.id=logement.id ;
+from requestlogement where requestlogement.id=old.id ;
 if validite='Valide'
 then 
 update logement 
