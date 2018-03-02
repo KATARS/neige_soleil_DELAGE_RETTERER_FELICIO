@@ -9,8 +9,16 @@ body {
 	color: #5B5B5B;
 }
 
+.navbar{
+	padding-bottom: -5px;
+	margin-bottom: 0px;
+}
 li,a{
-	padding: 5px;
+	padding-top: 10px;
 	font-family: 'arial', sans-serif;
 	font-size: 25px;
+}
+
+.alert{
+	font-size: 20px;
 }
