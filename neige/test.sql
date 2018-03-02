@@ -89,29 +89,29 @@ INSERT INTO type(idtype,nom) VALUES
   (2,"Chalet"),
   (3,"Maison");
   
-drop trigger if exists updateuser ;
-delimiter // 
-create trigger updateuser
-after update on requestuser 
-for each row 
-begin 
-declare valide text ;
-select status into valide
-from requestuser,user where requestuser.id=user.id ;
-if valide='Valider'
-then 
-update user 
-set status='1'
-where id=old.id ;
-end if;
-if valide='Refuser'
-then 
-update user 
-set status='0'
-where id=old.id ;
-end if ;
-end //
-delimiter ;
+drop trigger if exists updateuser;
+  delimiter //
+  create trigger updateuser
+  after update on requestuser
+  for each row
+  begin
+  declare valide text ;
+  select requestuser.status into valide
+  from requestuser,user where requestuser.id=user.id ;
+  if valide='Valider'
+  then
+  update user
+  set user.status='1'
+  where user.id=old.id ;
+  end if;
+  if valide='Refuser'
+  then
+  update user
+  set user.status='0'
+  where user.id=old.id ;
+  end if ;
+  end //
+  delimiter ;
 
 
 drop trigger if exists propositionlogement;
