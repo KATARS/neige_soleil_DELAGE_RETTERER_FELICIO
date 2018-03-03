@@ -7,23 +7,23 @@ session_start();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="../style.css" rel="stylesheet" type="text/css">
+    <link href="style.css" rel="stylesheet" type="text/css">
   </head>
   <body>
     <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <img src="images/logos.png" alt="neige&soleil" width="110px">
+      <a class="nav-link active" href="./index.php"><img src="images/logos.png" alt="neige&soleil" width="110px"></a>
     </div>
           <ul class="nav navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="./logement/liste_type.php">Catalogue</a>
+              <a class="nav-link active" href="./logement/date.php">Catalogue</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="index.php?page=1">A propos</a>
+              <a class="nav-link active" href="apropos.php">A propos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="index.php?page=2">Contact</a>
+              <a class="nav-link active" href="contact.php">Contact</a>
             </li>
             <li class="nav-item" >
               <div class="alert alert-info" role="alert">
@@ -32,8 +32,7 @@ session_start();
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="profil/inscription.php"><span class="glyphicon glyphicon-user"></span> s'inscrire</a></li>
-            <li><a href="profil/connection.php"><span class="glyphicon glyphicon-log-in"></span> se connecter</a></li>
+            <li><a href="profil/portail.php"><span class="glyphicon glyphicon-user"></span> Espace personnel</a></li>
           </ul>
         </div>
       </nav>
@@ -42,7 +41,6 @@ session_start();
     </div>
         <div id="carouselFade" class="carousel slide carousel-fade" data-ride="carousel">
 
-            <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
                   <img class="d-block img-fluid" src="images/montagne1.jpg" alt="montagne1">
@@ -67,7 +65,6 @@ session_start();
                 </div>
             </div>
 
-            <!-- Controls -->
             <a class="left carousel-control" href="#carouselFade" role="button" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
