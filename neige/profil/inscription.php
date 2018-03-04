@@ -1,5 +1,4 @@
 <?php
-session_start();
 require("bddconnect.php");
 if(isset($_POST['execute']))
 {

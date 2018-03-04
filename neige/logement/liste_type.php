@@ -23,7 +23,7 @@ require("bddconnect.php");
 		</div>
 					<ul class="nav navbar-nav">
 						<li class="nav-item">
-							<a class="nav-link active" href="#">Catalogue</a>
+							<a class="nav-link active" href="liste_type.php">Catalogue</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link active" href="../apropos.php">A propos</a>
@@ -49,9 +49,6 @@ require("bddconnect.php");
 				</li>
 			</ul>
 		</br>
-		<p>Vous souhaitez voyager du <?php echo htmlspecialchars($_SESSION['datearr']); ?>
-		au <?php echo htmlspecialchars($_SESSION['datedep']); ?>.</br>
-		Nous allons vous proposer tout nos biens disponibles pour cette periode</p>
 		<h1>Catégories</h1></br>
 		<div class="list-group">
 		<?php

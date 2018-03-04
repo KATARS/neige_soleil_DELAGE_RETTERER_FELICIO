@@ -1,5 +1,4 @@
-<?php
-session_start(); //initialise debut de session
+<?php //initialise debut de session
 require("bddconnect.php"); //connection bdd
 
 if(isset($_POST['executeconnect'])) //submit

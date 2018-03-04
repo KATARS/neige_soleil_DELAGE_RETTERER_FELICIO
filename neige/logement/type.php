@@ -4,12 +4,6 @@ require("bddconnect.php");
 
 if(isset($_GET['idtype']) AND $_GET['idtype'] > 0)
 {
-	$datearr = $_SESSION['datearr'];
-	$datedep = $_SESSION['datedep'];
-	$checkdate = $bdd->prepare('SELECT * FROM reservation WHERE datearr IS NOT = ? AND datedep IS NOT = ?;');
-	$checkdate->BindValue(1, $datearr, PDO::PARAM_STR);
-	$checkdate->BindValue(2, $datedep, PDO::PARAM_STR);
-
 	$reponse = $bdd->prepare('SELECT * FROM logement WHERE idtype=? AND status = "Valide";');
 	$reponse->BindValue(1, $_GET['idtype'], PDO::PARAM_INT);
 	$reponse->execute();
@@ -36,7 +30,7 @@ if(isset($_GET['idtype']) AND $_GET['idtype'] > 0)
 	</div>
 				<ul class="nav navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link active" href="#">Catalogue</a>
+						<a class="nav-link active" href="liste_type.php">Catalogue</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active" href="../apropos.php">A propos</a>
@@ -55,12 +49,8 @@ if(isset($_GET['idtype']) AND $_GET['idtype'] > 0)
 				</ul>
 			</div>
 		</nav>
-		</br>
-		<p>Vous souhaitez voyager du <?php echo htmlspecialchars($_SESSION['datearr']); ?>
-		au <?php echo htmlspecialchars($_SESSION['datedep']); ?>.</br>
-		Voici nos biens disponible de la catégorie séléctionnée</p>
+	</br><center>
 		<h2>Bien disponible</h2>
-		<title><?php echo htmlspecialchars($donnees['titre']); ?></title>
 	</br>
 		<?php
 		while ($donnees = $reponse->fetch())
@@ -68,6 +58,6 @@ if(isset($_GET['idtype']) AND $_GET['idtype'] > 0)
 			echo'<a href="logement.php?idlogement='.$donnees['idlogement'].'">'.stripslashes(htmlspecialchars($donnees['titre'])).'</a></br>';
 		}
 		$reponse->closeCursor();
-		?>
+		?></center>
 	</body>
 </html>

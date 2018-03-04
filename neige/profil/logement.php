@@ -34,7 +34,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0) //recupere id de session si i
     	$insertlogement->bindValue(8, $photo, PDO::PARAM_STR);
       $insertlogement->bindValue(9, $id, PDO::PARAM_INT);
       $insertlogement->bindValue(10, $createdate, PDO::PARAM_STR);
-      
+
       $contrat = $bdd->prepare('INSERT INTO contrat_logement(id,titre,createdate) VALUES (?,?,?)') or die(print_r($bdd->errorInfo()));
       $contrat->bindValue(1, $id, PDO::PARAM_STR);
     	$contrat->bindValue(2, $titre, PDO::PARAM_STR);

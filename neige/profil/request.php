@@ -9,8 +9,12 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
     ?>
   <html>
     <head>
-      <meta charset="utf-8">
-      <link rel="stylesheet" href="../css/bootstrap.min.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link href="style.css" rel="stylesheet" type="text/css">
+    </head>
       <title>Requete</title>
     </head>
     <body></br>
@@ -103,7 +107,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             if(isset($_POST['Valider']))
             {
               $id = $_POST['id'];
-              $update = $bdd->prepare("UPDATE requestuser SET requestuser.status='Valider' WHERE id = ?");
+              $update = $bdd->prepare("UPDATE requestuser SET requestuser.status='Valider' WHERE idrequ = ?");
               $update->bindValue(1, $id, PDO::PARAM_INT);
               $update->execute();
               echo "<h6>Reussie</h6>";
@@ -228,7 +232,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             if(isset($_POST['Valide']))
             {
               $id = $_POST['id'];
-              $update = $bdd->prepare("UPDATE requestlogement SET requestlogement.status='Valide' WHERE id = ?");
+              $update = $bdd->prepare("UPDATE requestlogement SET requestlogement.status='Valide' WHERE idreql = ?");
               $update->bindValue(1, $id, PDO::PARAM_INT);
               $update->execute();
               echo "<h6>Reussie</h6>";
@@ -236,7 +240,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             if(isset($_POST['Refuser']))
             {
               $id = $_POST['id'];
-              $delete = $bdd->prepare("UPDATE requestlogement SET requestlogement.status='Invalide' WHERE idrequ = ?");
+              $delete = $bdd->prepare("UPDATE requestlogement SET requestlogement.status='Invalide' WHERE idreql = ?");
               $delete->bindValue(1, $id, PDO::PARAM_INT);
               $delete->execute();
               echo "<h6>Reussie</h6>";

@@ -30,7 +30,7 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
       </div>
             <ul class="nav navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" href="#">Catalogue</a>
+                <a class="nav-link active" href="liste_type.php">Catalogue</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="../apropos.php">A propos</a>
@@ -52,29 +52,36 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
       <div class="container">
         <div class="row">
             <div class="col-lg-4">
-              <img width="300px" src="../images/<?php echo $data['photo']; ?>"><br/>
+              <img width="300px" src="../profil/<?php echo $data['photo']; ?>"><br/>
               </div>
               <div class="col-lg-8">
     	<h3><span class="label label-info">Titre</span><?php echo stripslashes(htmlspecialchars($data['titre'])); ?>
         <br/>
-        <span class="label label-info">emplacement</span>
-        <?php echo stripslashes(htmlspecialchars($data['emplacement'])); ?>
-        <br/>
-        <span class="label label-info">Taille</span>
-        <?php echo stripslashes(htmlspecialchars($data['taille'])); ?>
-        <br/>
-        <span class="label label-info">etage</span>
+        <span class="label label-info">Etage</span>
         <?php echo stripslashes(htmlspecialchars($data['etage'])); ?>
         <br/>
-        <span class="label label-info">prix</span>
+        <span class="label label-info">Region</span>
+        <?php echo stripslashes(htmlspecialchars($data['emplacement'])); ?>
+        <br/>
+        <span class="label label-info">Taille (en m²)</span>
+        <?php echo stripslashes(htmlspecialchars($data['taille'])); ?>
+        <br/>
+        <span class="label label-info">Prix (en €/jour)</span>
         <?php echo stripslashes(htmlspecialchars($data['prix'])); ?>
         <br/>
-        <span class="label label-info">caracteristique</span>
+        <span class="label label-info">Caracteristiques</span>
         <?php echo stripslashes(htmlspecialchars($data['caracteristique'])); ?>
         <br/>
-      </div>
-
     </div>
+  </div><center><?php
+      if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
+      {
+        include("date.php");
+      }
+      else {
+        echo "Vous devez vous connecter pour reserver";
+      }
+  ?></center>
       </div>
     </body>
 </html>

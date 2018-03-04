@@ -1,3 +1,11 @@
+<?php
+session_start();
+if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
+{
+  header("Location: profil.php?id=".$_SESSION['id']);
+}
+else {
+ ?>
 <html>
   <head>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -34,3 +42,6 @@
   ?>
   </body>
 </html>
+<?php
+}
+?>

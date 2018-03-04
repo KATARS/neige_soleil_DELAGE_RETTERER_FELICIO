@@ -10,14 +10,18 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 	$reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
 	?>
 	<html>
-	  <head>
-	    <link rel="stylesheet" href="../css/bootstrap.min.css">
-	  </head>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link href="style.css" rel="stylesheet" type="text/css">
+	</head>
 	  <body>
     	<h1>Neige & Soleil</h1></br>
         <ul class="nav justify-content-center">
           <li class="nav-item">
-            <a class="nav-link active" href="index.php">Accueil</a>
+            <a class="nav-link active" href="../index.php">Accueil</a>
           </li>
         </ul>
     	</br>
