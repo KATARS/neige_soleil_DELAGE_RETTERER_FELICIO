@@ -89,7 +89,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
           <table border="2">
             <tr>
               <td>Id User</td>
-              <td>Id Req</td>
+              <td>Id Requ</td>
               <td>Email user</td>
               <td>Date de demande</td>
               <td>Status</td>
@@ -122,9 +122,9 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             }
             ?>
           </table></br>
-          <p>Pour effectuer une action sur une demande,</br>Veuillez renseigner l'ID de son utilisateur</p>
+          <p>Pour effectuer une action sur une demande,</br>Veuillez renseigner son ID</p>
           <form class="" action="" method="post">
-            <label for="id">Renseigner ID User</label>
+            <label for="id">Renseigner ID Requ</label>
             <input type="text" name="id" value="" pattern="^[_0-9]{1,}$" minlength="1" maxlength="5"required></br></br>
             <button type="submit" class="btn btn-primary" name="Valider">Autoriser</button>
             <button type="submit" class="btn btn-danger" name="Refuser">Refuser</button>
@@ -208,13 +208,13 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
         $reponse = $bdd->prepare('SELECT * FROM requestlogement WHERE status = "En attente";');
-        $reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
+        $reponse->execute(); //recupere toute les info du logement qui correspond a id de session en cours
         ?>
         <center>
           <table border="2">
             <tr>
               <td>Id User</td>
-              <td>Id Req</td>
+              <td>Id Reql</td>
               <td>Email user</td>
               <td>Date de demande</td>
               <td>Status</td>
@@ -247,9 +247,9 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             }
             ?>
           </table></br>
-          <p>Pour effectuer une action sur une demande,</br>Veuillez renseigner l'ID de son utilisateur</p>
+          <p>Pour effectuer une action sur une demande,</br>Veuillez renseigner son ID</p>
           <form class="" action="" method="post">
-            <label for="id">Renseigner ID User</label>
+            <label for="id">Renseigner ID Reql </label>
             <input type="text" name="id" value="" pattern="^[_0-9]{1,}$" minlength="1" maxlength="5"required></br></br>s
             <button type="submit" class="btn btn-primary" name="Valide">Valide</button>
             <button type="submit" class="btn btn-danger" name="Invalide">Invalide</button>
