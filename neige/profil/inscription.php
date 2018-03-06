@@ -77,6 +77,7 @@ if(isset($_POST['execute']))
 ?>
 <h2> Inscription </h2></br>
 <center>
+	<div class="container-fluid">
 	<form method ="post" action ="">
 	  <table>
 	    <tr>
@@ -86,53 +87,54 @@ if(isset($_POST['execute']))
 	    </tr>
 	    <tr>
 	      <td><label for="nom">Nom : </td>
-	      <td><input type="text" name="nom" value="" pattern="^[_A-zéèçêïîÏÎ]{1,}$" required></td>
+	      <td><input class="form-control" type="text" name="nom" value="" pattern="^[_A-zéèçêïîÏÎ]{1,}$" required></td>
 	    </tr>
 	    <tr>
 	      <td><label for="prenom">Prénom : </label></td>
-	      <td><input type="text" name="prenom" value="" pattern="^[_A-zéèçêïîÏÎ]{1,}$" required></td>
+	      <td><input class="form-control" type="text" name="prenom" value="" pattern="^[_A-zéèçêïîÏÎ]{1,}$" required></td>
 	    </tr>
 	    <tr>
 	      <td><label for="email">Email : </label></td>
-	      <td><input type="email" name="email" value="" pattern="^[@_A-z0-9.]{1,}$" required></td>
+	      <td><input class="form-control" type="email" name="email" value="" pattern="^[@_A-z0-9.]{1,}$" required></td>
 	    </tr>
 			<tr>
 	      <td><label for="email2">Confirmation : </label></td>
-	      <td><input type="email" name="email2" value="" pattern="^[@_A-z0-9.]{1,}$" required></td>
+	      <td><input class="form-control" type="email" name="email2" value="" pattern="^[@_A-z0-9.]{1,}$" required></td>
 	    </tr>
 	    <tr>
 	      <td><label for="password">Mot de passe : </label></td>
-	      <td><input type="password" name="password" value="" minlength="6" required></td>
+	      <td><input class="form-control" type="password" name="password" value="" minlength="6" required></td>
 	    </tr>
 			<tr>
 	      <td><label for="password2">Confirmation : </label></td>
-	      <td><input type="password" name="password2" value="" minlength="6" required></td>
+	      <td><input class="form-control" type="password" name="password2" value="" minlength="6" required></td>
 	    </tr>
 	    <tr>
 	      <td><label for="adresse">Adresse : </label></td>
-	      <td><input type="text" name="adresse" value="" pattern="^[_ A-z0-9]{1,}$" required></td>
+	      <td><input class="form-control" type="text" name="adresse" value="" pattern="^[_ A-z0-9]{1,}$" required></td>
 	    </tr>
 	    <tr>
 	      <td><label for="ville">Ville </label></td>
-	      <td><input type="text" name="ville" value="" pattern="^[_A-zéèçêïîÏÎ]{1,}$" required></td>
+	      <td><input class="form-control" type="text" name="ville" value="" pattern="^[_A-zéèçêïîÏÎ]{1,}$" required></td>
 	    </tr>
 	    <tr>
 	      <td><label for="cp">Code Postal: </label></td>
-	      <td><input type="text" name="cp" value="" pattern="^[_0-9]{1,}$" minlength="5" maxlength="5"required></td>
+	      <td><input class="form-control" type="text" name="cp" value="" pattern="^[_0-9]{1,}$" minlength="5" maxlength="5"required></td>
 	    </tr>
 	    <tr>
 	      <td><label for="tel">Téléphone: </label></td>
-	      <td><input type="text" pattern="^[+_0-9]{1,}$" name="tel" maxlength="12" minlength="10" required></td>
+	      <td><input class="form-control" type="text" pattern="^[+_0-9]{1,}$" name="tel" maxlength="12" minlength="10" required></td>
 	    </tr>
 	    <tr>
 	      <td><label for="datebirth">Date de Naissance</label></td>
-	      <td><input name="datebirth" type="date" required/></td>
+	      <td><input class="form-control" name="datebirth" type="date" required/></td>
 	    </tr>
 	    <tr>
 	      <td><input type="hidden" name="status" value="0">
-	        	<button type="reset" class="btn btn-warning" name="reset">Réinitialiser</button></td>
-	      <td><button type="submit" class="btn btn-success" name="execute">S'inscrire</button></td>
+	        	<button type="reset" class="btn btn-warning btn-block" name="reset">Réinitialiser</button></td>
+	      <td><button type="submit" class="btn btn-primary btn-block" name="execute">S'inscrire</button></td>
 	    </tr>
 	  </table>
 	</form>
+</div>
 </center>

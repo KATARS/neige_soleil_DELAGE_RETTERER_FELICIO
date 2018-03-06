@@ -42,21 +42,19 @@ if(isset($_POST['executeconnect'])) //submit
 	}
 }
 ?>
-<h2> Connection </h2></br>
-<center>
-	<form method ="post" action ="">
-	  <table>
-	    <tr>
-	      <td><label for="email">Email : </label></td>
-	      <td><input type="email" name="email" value="" pattern="^[@_A-z0-9.]{1,}$" required></td>
-	    </tr>
-	    <tr>
-	      <td><label for="password">Mot de passe : </label></td>
-	      <td><input type="password" name="password" value="" required></td>
-	    </tr>
-		</table>
-		</br>
-	  	<button type="reset" class="btn btn-warning" name="reset">Réinitialiser</button>
-	    <button type="submit" class="btn btn-primary" name="executeconnect">Se Connecter</button>
-	</form>
-</center>
+<html>
+
+	<body>
+<div class="container-fluid">
+  <form class="form-signin"method ="post" action ="">
+    <h2 class="form-signin-heading">Connectez vous</h2>
+    <label for="email" class="sr-only">Email</label>
+    <input type="email" name="email" class="form-control" value="" pattern="^[@_A-z0-9.]{1,}$" placeholder="Email" required autofocus>
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" name="password" value="" name="password" class="form-control" placeholder="Password" required>
+		<button type="reset" class="btn btn-warning btn-block" name="reset">Réinitialiser</button>
+		<button type="submit" class="btn btn-primary btn-block" name="executeconnect">Se Connecter</button>
+  </form>
+</div>
+
+</body>
