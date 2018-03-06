@@ -15,32 +15,46 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<link href="style.css" rel="stylesheet" type="text/css">
+		<link href="../style.css" rel="stylesheet" type="text/css">
 	</head>
 	  <body>
-    	<h1>Neige & Soleil</h1></br>
-        <ul class="nav justify-content-center">
-          <li class="nav-item">
-            <a class="nav-link active" href="../index.php">Accueil</a>
-          </li>
-        </ul>
-    	</br>
+			<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="nav-link active" href="./index.php"><img src="../images/logos.png" alt="neige&soleil" width="110px"></a>
+	    </div>
+	          <ul class="nav navbar-nav">
+	            <li class="nav-item">
+	              <a class="nav-link active" href="../logement/liste_type.php">Catalogue</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link active" href="apropos.php">A propos</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link active" href="contact.php">Contact</a>
+	            </li>
+	            <li class="nav-item" >
+	              <div class="alert alert-info" role="alert">
+	                  <strong>-30% jusqu'au 03/06/2018</strong> sur les chalets familiales
+	              </div>
+	            </li>
+	          </ul>
+	          <ul class="nav navbar-nav navbar-right">
+	            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Espace personnel</a></li>
+	          </ul>
+	        </div>
+	      </nav>
 		  <h1>Espace Personnel</h1></br>
 		  <p>Bienvenue <?php echo htmlspecialchars($_SESSION['civilite']); ?>
 				<?php echo htmlspecialchars($_SESSION['nom']); ?>
 				<?php echo htmlspecialchars($_SESSION['prenom']); ?>
 				dans votre espace personnel</p>
-		  <ul class="nav justify-content-center">
-		    <li class="nav-item">
-		      <a class="nav-link active" href="../logement/date.php">Louer un bien</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link active" href="profil.php?page=1">Proposer un bien</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link active" href="profil.php?page=3">Deconnection</a>
-		    </li>
-		  </ul></br>
+			<div class="btn-group-vertical" role="group" aria-label="Basic example">
+	  		<button type="button" class="btn btn-secondary btn-lg" href="../logement/date.php">Louer un bien</button>
+	  		<button type="button" class="btn btn-secondary btn-lg" href="profil.php?page=1">Proposer un bien</button>
+	  		<button type="button" class="btn btn-secondary btn-lg" href="profil.php?page=3">Deconnection</button>
+			</div>
+
 	    <?php
 			if(isset($_SESSION['status']) AND $_SESSION['status'] >= 1)
 			{

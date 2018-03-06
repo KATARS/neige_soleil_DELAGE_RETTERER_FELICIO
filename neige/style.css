@@ -41,7 +41,11 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+.btn-secondary{
+	color: grey;
+	background-color: #2755f6;
 
+}
 body, html{height:100%;}
 #main
 {
