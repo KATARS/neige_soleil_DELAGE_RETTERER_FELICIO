@@ -124,3 +124,53 @@ INSERT INTO `logement` (`idlogement`, `titre`, `emplacement`, `etage`, `prix`, `
   (4, 'Appartement Spacieux', 'Alpes', '1er', '11EUR', '100', 1, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', 'valide', NULL);
 
 
+
+
+drop trigger if exists updateuser ;
+delimiter // 
+create trigger updateuser
+after update on requestuser 
+for each row 
+begin 
+declare valide text ;
+select status into valide
+from requestuser where requestuser.id=old.id ;
+if valide='Valider'
+then 
+update user 
+set status='1'
+where id=old.id ;
+end if;
+if valide='Refuser'
+then 
+update user 
+set status='0'
+where id=old.id ;
+end if ;
+end //
+delimiter ;
+
+
+drop trigger if exists propositionlogement;
+delimiter //
+create trigger propositionlogement
+after update on requestlogement
+for each row 
+begin 
+declare validite text ;
+select status into validite
+from requestlogement where requestlogement.id=old.id ;
+if validite='Valide'
+then 
+update logement 
+set status='valide'
+where id=old.id ;
+end if;
+if validite='Invalide'
+then 
+update logement 
+set status='invalide'
+where id=old.id ;
+end if ;
+end //
+delimiter ;
