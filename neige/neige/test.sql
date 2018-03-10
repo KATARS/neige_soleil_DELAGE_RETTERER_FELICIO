@@ -73,7 +73,7 @@ create table requestuser (
   primary key (idreql));
 
 ALTER TABLE user
-ADD foreign key (idreservation) references reservation(idreservation); 
+ADD foreign key (idreservation) references reservation(idreservation);
 
 ALTER TABLE reservation
 ADD foreign key (id) references user (id);
@@ -123,54 +123,52 @@ INSERT INTO `logement` (`idlogement`, `titre`, `emplacement`, `etage`, `prix`, `
   (3, 'Chalet Ancien Rustique', 'Alpes', '1er', '12EUR', '100', 2, 'beau', 2, './photos/455e981c88f0e5db165c03f7fa55eaa1', '2018-03-04', 'invalide', NULL),
   (4, 'Appartement Spacieux', 'Alpes', '1er', '11EUR', '100', 1, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', 'valide', NULL);
 
-
-
-
 drop trigger if exists updateuser ;
-delimiter // 
-create trigger updateuser
-after update on requestuser 
-for each row 
-begin 
-declare valide text ;
-select status into valide
-from requestuser where requestuser.id=old.id ;
-if valide='Valider'
-then 
-update user 
-set status='1'
-where id=old.id ;
-end if;
-if valide='Refuser'
-then 
-update user 
-set status='0'
-where id=old.id ;
-end if ;
+
+delimiter //
+  create trigger updateuser
+  after update on requestuser
+  for each row
+begin
+  declare valide text ;
+  select status into valide
+  from requestuser where requestuser.id=old.id ;
+  if valide='Valider'
+  then
+  update user
+  set status='1'
+  where id=old.id ;
+  end if;
+  if valide='Refuser'
+  then
+  update user
+  set status='0'
+  where id=old.id ;
+  end if ;
 end //
 delimiter ;
 
+drop trigger if exists propositionlogement ;
 
-drop trigger if exists propositionlogement;
 delimiter //
-create trigger propositionlogement
-after update on requestlogement
-for each row 
-begin 
-declare validite text ;
-select status into validite
-from requestlogement where requestlogement.idreql=old.idreql ;
-if validite='Valide'
-then 
-update logement 
-set status='valide'
-where idlogement=old.idreql ;
-end if;
-if validite='Invalide'
-then 
-update logement 
-set status='invalide'
-where idlogement=old.idreql ;
-end if ;
+  create trigger propositionlogement
+  after update on requestlogement
+  for each row
+begin
+  declare validite text ;
+  select status into validite
+  from requestlogement where requestlogement.idreql=old.idreql ;
+  if validite='Valide'
+  then
+  update logement
+  set status='valide'
+  where idlogement=old.idreql ;
+  end if;
+  if validite='Invalide'
+  then
+  update logement
+  set status='invalide'
+  where idlogement=old.idreql ;
+  end if ;
 end //
 delimiter ;
