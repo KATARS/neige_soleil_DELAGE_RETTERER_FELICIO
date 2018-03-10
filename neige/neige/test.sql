@@ -159,18 +159,18 @@ for each row
 begin 
 declare validite text ;
 select status into validite
-from requestlogement where requestlogement.id=old.id ;
+from requestlogement where requestlogement.idreql=old.idreql ;
 if validite='Valide'
 then 
 update logement 
 set status='valide'
-where id=old.id ;
+where idlogement=old.idreql ;
 end if;
 if validite='Invalide'
 then 
 update logement 
 set status='invalide'
-where id=old.id ;
+where idlogement=old.idreql ;
 end if ;
 end //
 delimiter ;
