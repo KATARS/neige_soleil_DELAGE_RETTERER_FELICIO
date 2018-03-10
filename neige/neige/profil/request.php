@@ -198,7 +198,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
               $update->execute();
               echo "<h6>Reussie</h6>";
             }
-            if(isset($_POST['Refuser']))
+            if(isset($_POST['Invalide']))
             {
               $id = $_POST['id'];
               $delete = $bdd->prepare("UPDATE requestlogement SET requestlogement.status='Invalide' WHERE idreql = ?");
