@@ -22,14 +22,7 @@ if(isset($_POST['executeconnect'])) //submit
 			$_SESSION['civilite'] = $donnees['civilite'];
 			$_SESSION['nom'] = $donnees['nom'];
 			$_SESSION['prenom'] = $donnees['prenom'];
-
-			if(isset($_SESSION['status']) AND $_SESSION['status'] <= 1)
-			{
-				header("Location: profil.php?id=".$_SESSION['id']);
-			}
-			else {
-				header("Location: panel.php?id=".$_SESSION['id']);
-			}
+			header("Location: profil.php?id=".$_SESSION['id']);
 		}
 		else
 		{

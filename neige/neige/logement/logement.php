@@ -20,9 +20,9 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
         <link href="../style.css" rel="stylesheet" type="text/css">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -85,92 +85,12 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
   <?php
       if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       {
-        if(isset($_SESSION['datearr']) AND $_SESSION['datearr'] > 0)
-        {
-          if(isset($_POST['reserver'])) //submit
-          {
-          	if(!empty($_POST['datearr']) AND !empty($_POST['datedep']))
-          	{
-          		$datearr= $_SESSION['datearr'];
-          		$datedep = $_SESSION['datedep'];
-          		$id = $_SESSION['id'];
-          		$idlogement = $_GET['idlogement'];
-          		$createdate = date('Y-m-d');
-
-          		$insertres = $bdd->prepare("INSERT INTO reservation
-          			(datearr,datedep,id,idlogement,createdate,periode VALUES(?,?,?,?,?)");
-          		$insertres->bindValue(1, $datearr, PDO::PARAM_STR);
-          		$insertres->bindValue(2, $datedep, PDO::PARAM_STR);
-          		$insertres->bindValue(3, $id, PDO::PARAM_INT);
-          		$insertres->bindValue(4, $idlogement, PDO::PARAM_INT);
-          		$insertres->bindValue(5, $createdate, PDO::PARAM_STR);
-          		$insertres->execute();
-            }
-          	else
-          	{
-          		echo  "Remplissez tous les champs !";
-          	}
-          }
-          ?></br>
-          <form method ="post" action ="">
-              <button type="submit" class="btn btn-success" name="reserver">Reserver</button>
-          </form><?php
-          }
-          else
-          {
-
-          $verifA = $bdd->prepare('SELECT * FROM reservation WHERE ? BETWEEN datearr AND datedep');
-          $verifA->bindValue(1, $datearr, PDO::PARAM_STR);
-          $verifA->execute();
-
-          if (!$verifA) {
-            $verifD = $bdd->prepare('SELECT * FROM reservation WHERE ? BETWEEN datearr AND datedep');
-            $verifD->bindValue(1, $datedep, PDO::PARAM_STR);
-            $verifD->execute();
-            if (!$verifD) {
-              ?>
-              <h2>Bien disponible</h2>
-          	</br>
-          		<?php
-          		while ($donnees = $verifD->fetch())
-          		{
-          			echo'<a href="logement.php?idlogement='.$donnees['idlogement'].'">'.stripslashes(htmlspecialchars($donnees['titre'])).'</a></br>';
-          		}
-          		$reponse->closeCursor();
-
-            }
-            else {
-              echo "Indisponible";
-              }
-
-          }
-          else {
-            echo "Indisponible";
-            }
-          ?><center>
-            <h3>Verifier la disponibilité</h3></br>
-            <form method ="post" action ="">
-              <table>
-                <tr>
-                  <td><label for="datearr">Date Debut : </label></td>
-                  <td><input type="date" name="datearr" required></td>
-                </tr>
-                <tr>
-                  <td><label for="datedep">Date Fin : </label></td>
-                  <td><input type="date" name="datedep" required></td>
-                </tr>
-              </table>
-              </br>
-                <button type="submit" class="btn btn-success" name="choisirdate">Valider</button>
-            </form>
-          </center>
-
-            <?php
-        }
+        echo "mettre calendrier ici";
       }
-      else {
-        echo "Vous devez vous connecter pour reserver";
-      }?></center></div>
+    else {
+      echo "Vous devez vous connecter pour reserver";
+      }?>
+    </center></div>
       </div>
     </body>
 </html>
