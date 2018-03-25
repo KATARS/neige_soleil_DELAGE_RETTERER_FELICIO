@@ -85,7 +85,7 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
   <?php
       if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       {
-        echo "mettre calendrier ici";
+        include("calendrier.php");
       }
     else {
       echo "Vous devez vous connecter pour reserver";

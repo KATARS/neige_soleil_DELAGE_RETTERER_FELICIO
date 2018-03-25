@@ -6,6 +6,12 @@ html *
 }
 table.calendar {
 	border-left: 1px solid #999;
+  background-color: #b2b2b2;
+}
+table tr{
+  background-color: #b2b2b2;
+  color: black;
+  text-align: center;
 }
 tr.calendar-row {
 }
@@ -19,18 +25,19 @@ td.calendar-day {
 	height: 80px;
 }
 td.calendar-day:hover {
-	background: #eceff5;
+	background: white;
 }
 td.calendar-day-np {
-	background: #eee;
+	background: grey;
 	min-height: 80px;
 }
 * html div.calendar-day-np {
 	height: 80px;
 }
 td.calendar-day-head {
-	background: #ccc;
+	background: white;
 	font-weight: bold;
+  color: black;
 	text-align: center;
 	width: 120px;
 	padding: 5px;
@@ -132,7 +139,7 @@ td.calendar-day, td.calendar-day-np {
   	}
   }
   ?>
-<h1>Dispo</h1>
+<h1>Disponibilités</h1>
 <table border="1" cellpadding="5" width="900">
 	<tr>
 		<td valign="top">
@@ -279,6 +286,7 @@ jQuery(document).ready(function(){
       			while($row = $sql->fetch()) {
   					if($row["canceled"] == 1) $calendar .= "<font color=\"red\"><s>";
       				$calendar .= "<b>Non disponible<br>";
+
       				if($current_epoch == $row["start_day"] AND $current_epoch != $row["end_day"]) {
       					$calendar .= "DEBUT: " . sprintf("%02d:%02d", $row["start_time"]/60/60, ($row["start_time"]%(60*60)/60)) . "<br><hr><br>";
       				}
