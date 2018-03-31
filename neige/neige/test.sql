@@ -49,8 +49,8 @@ CREATE TABLE logement(
         idlogement      int (11) Auto_increment  NOT NULL ,
         titre           Text ,
         emplacement     Text ,
-        etage           Int ,
-        prix            Float ,
+        etage           Text ,
+        prix            Text ,
         taille          Text ,
         idtype          Int ,
         caracteristique Text ,
@@ -107,7 +107,7 @@ CREATE TABLE request(
         id         Int ,
         email      Varchar (25) ,
         idlogement Int ,
-        status enum('En attente','Valide','Invalide') DEFAULT 'En attente',
+        status enum('En attente','Valide logement','Invalide logement','Valide user','Invalide user') DEFAULT 'En attente',
         PRIMARY KEY (idreq )
 )ENGINE=InnoDB;
 
@@ -196,3 +196,41 @@ INSERT INTO `logement` (`idlogement`, `titre`, `emplacement`, `etage`, `prix`, `
   (2, 'Chalet Ancien Rustique', 'Alpes', '1er', '12EUR', '100', 2, 'beau', 2, './photos/71ce3ce7b8df56795f26005b53bea16c', '2018-03-04', 'en attente', NULL),
   (3, 'Chalet Ancien Rustique', 'Alpes', '1er', '12EUR', '100', 2, 'beau', 2, './photos/455e981c88f0e5db165c03f7fa55eaa1', '2018-03-04', 'invalide', NULL),
   (4, 'Appartement Spacieux', 'Alpes', '1er', '11EUR', '100', 1, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', 'valide', NULL);
+
+
+
+drop trigger if exists updaterequest;
+delimiter //
+create trigger updaterequest
+after update on request 
+for each row 
+begin 
+declare validite text;
+select status into validite 
+from request where request.idreq=old.idreq;
+if validite = 'Valide user' 
+then
+update user 
+set status='1' 
+where id=old.id;
+end if;
+if validite = 'Invalide user' 
+then
+update user 
+set status='0' 
+where id=old.id;
+end if;
+if validite = 'Valide logement' 
+then
+update logement 
+set status='valide' 
+where idlogement=old.idlogement;
+end if;
+if validite = 'Invalide logement' 
+then
+update logement 
+set status='invalide' 
+where idlogement=old.idlogement;
+end if;
+end //
+delimiter ;
