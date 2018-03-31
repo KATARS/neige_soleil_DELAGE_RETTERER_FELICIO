@@ -68,7 +68,6 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
           }
           break;
           case 6:
-  				session_start(); //initialise debut de session
   				$_SESSION = array(); //recupere la session en cours
   				session_destroy(); //detruit la session
   				header("Location: index.php"); //retourne a l'accueil

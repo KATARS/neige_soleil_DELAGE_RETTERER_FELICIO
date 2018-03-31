@@ -13,6 +13,14 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
 
   $data = $reponse->fetch();
   $reponse->closeCursor();
+
+  $id = $_SESSION['id'];
+  $info = $bdd->prepare('SELECT * FROM user WHERE id = ?;');
+  $info->bindValue(1, $id, PDO::PARAM_INT);
+  $info->execute();
+
+  $infouser = $info->fetch();
+  $info->closeCursor();
 }
 
 ?>
@@ -85,6 +93,11 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
   <?php
       if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       {
+        $name = $infouser['nom'];
+    		$iduser = $infouser['id'];
+    		$email = $infouser['email'];
+        $idlogement = $data['idlogement'];
+        $item = $data['titre'];
         include("calendrier.php");
       }
     else {

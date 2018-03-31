@@ -62,12 +62,13 @@ td.calendar-day, td.calendar-day-np {
 	border-right: 1px solid #999;
 }
 </style>
+
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <title>Reservation</title>
 <link href="calendrier/jquery-ui.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script src="calendrier/jquery-ui.js"></script>
-<!--<script src="lang/datepicker-fi.js"></script>-->
+<script src="lang/datepicker-fr.js"></script>
 <script>
     $(function() {
 	<!--$.datepicker.setDefaults($.datepicker.regional['fi']);-->
@@ -102,17 +103,13 @@ td.calendar-day, td.calendar-day-np {
   		$start_time = (60*60*intval(htmlspecialchars($_POST["start_hour"]))) + (60*intval(htmlspecialchars($_POST["start_minute"])));
   		$end_day = intval(strtotime(htmlspecialchars($_POST["end_day"])));
   		$end_time = (60*60*intval(htmlspecialchars($_POST["end_hour"]))) + (60*intval(htmlspecialchars($_POST["end_minute"])));
-  		//$name = htmlspecialchars($_SESSION["nom"]);
-  		//iduser = htmlspecialchars($_SESSION["id"]);
-  		//email = htmlspecialchars($_SESSION["email"]);
-      $idlogement = 5; //$_GET['idlogement'];
-  		$item = 'Chalet'; //$_GET["titre"];
 
   		$start_epoch = $start_day + $start_time;
   		$end_epoch = $end_day + $end_time;
 
   		// prevent double booking
-  		$sql = $bdd->prepare("SELECT * FROM reservation WHERE idlogement = 5 AND (start_day>=$start_day OR end_day>=$start_day) AND canceled=0;");
+  		$sql = $bdd->prepare("SELECT * FROM reservation WHERE idlogement = ? AND (start_day>=$start_day OR end_day>=$start_day) AND canceled=0;") or die(print_r($bdd->errorInfo()));;
+      $sql->bindValue(1,$idlogement,PDO::PARAM_INT);
   		$sql->execute();
   		if ($sql->rowCount() > 0) {
         //check toutes les lignes
@@ -121,21 +118,22 @@ td.calendar-day, td.calendar-day-np {
   					if ($i>($row["start_day"]+$row["start_time"]) && $i<($row["end_day"]+$row["end_time"])) {
               $sql->closeCursor();
               die;
-              echo '<h3><font color="red"Malheureusement le bien,  ' . $item . ' est pris pour cette periode".</font></h3>';
             }
   				} die;
   			}
-  		}
-      $insertres = $bdd->prepare("INSERT INTO reservation(start_day,start_time,end_day,end_time,idlogement,item)
-        VALUES (?,?,?,?,?,?)") or die(print_r($bdd->errorInfo()));
+  		}$insertres = $bdd->prepare("INSERT INTO reservation(start_day,start_time,end_day,end_time,idlogement,item,id,name)
+        VALUES (?,?,?,?,?,?,?,?)");
       $insertres->bindValue(1, $start_day, PDO::PARAM_INT);
       $insertres->bindValue(2, $start_time, PDO::PARAM_INT);
       $insertres->bindValue(3, $end_day, PDO::PARAM_INT);
       $insertres->bindValue(4, $end_time, PDO::PARAM_INT);
       $insertres->bindValue(5, $idlogement, PDO::PARAM_INT);
       $insertres->bindValue(6, $item, PDO::PARAM_STR);
+      $insertres->bindValue(7, $id, PDO::PARAM_INT);
+      $insertres->bindValue(8, $name, PDO::PARAM_STR);
       $insertres->execute();
       echo "Reservation réussie";
+
   	}
   }
   ?>
@@ -278,7 +276,10 @@ jQuery(document).ready(function(){
   			$calendar.= str_repeat('<p> </p>',2);
   			$current_epoch = mktime(0,0,0,$month,$list_day,$year);
 
-  			$sql = $bdd->prepare("SELECT * FROM reservation WHERE idlogement = 5 AND $current_epoch BETWEEN start_day AND end_day;");
+        $idlogement = $_GET['idlogement'];
+
+  			$sql = $bdd->prepare("SELECT * FROM reservation WHERE idlogement = ? AND $current_epoch BETWEEN start_day AND end_day;");
+        $sql->bindValue(1, $idlogement, PDO::PARAM_INT);
         $sql->execute();
 
       		if ($sql->rowCount() > 0) {
@@ -346,6 +347,10 @@ jQuery(document).ready(function(){
   echo draw_calendar($d->format('m'),$d->format('Y'));
 
   $d->modify( 'first day of next month' );
+  echo '<h3>' . $months[$d->format('n')-1] . ' ' . $d->format('Y') . '</h3>';
+  echo draw_calendar($d->format('m'),$d->format('Y'));
+  $d->modify( 'first day of next month' );
+
   echo '<h3>' . $months[$d->format('n')-1] . ' ' . $d->format('Y') . '</h3>';
   echo draw_calendar($d->format('m'),$d->format('Y'));
 
