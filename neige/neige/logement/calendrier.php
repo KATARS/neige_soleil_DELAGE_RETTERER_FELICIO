@@ -51,10 +51,10 @@
   			while($row = $sql->fetch()) {
   				for ($i = $start_epoch; $i <= $end_epoch; $i=$i+600) {
   					if ($i>($row["start_day"]+$row["start_time"]) && $i<($row["end_day"]+$row["end_time"])) {
-            $sql->closeCursor();  
+            $sql->closeCursor();
             }
   				}
-  			} echo "Bien indispo";
+  			} echo "Le bien n'est pas disponible pour la période séléctionnée";
   		} else {
 
       $insertres = $bdd->prepare("INSERT INTO reservation(start_day,start_time,end_day,end_time,idlogement,item,id,name)
