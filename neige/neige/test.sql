@@ -234,3 +234,18 @@ where idlogement=old.idlogement;
 end if;
 end //
 delimiter ;
+
+
+drop trigger if exists insertrequest;
+delimiter // 
+create trigger insertrequest 
+after insert on logement
+for each row 
+begin 
+declare mail varchar(150);
+select user.email into mail
+from user,logement 
+where user.id=logement.id and logement.idlogement=new.idlogement;
+insert into request(createdate,id,email,idlogement) values(sysdate(),new.id,mail,new.idlogement);
+end //
+delimiter ; 
