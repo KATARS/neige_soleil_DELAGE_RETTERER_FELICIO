@@ -2,202 +2,143 @@ drop database if exists neige;
 create database neige;
   use neige;
 
-CREATE TABLE user(
-        id         int (11) Auto_increment  NOT NULL ,
-        nom        Text ,
-        prenom     Text ,
-        email      Varchar (25) ,
-        password   Text ,
-        adresse    Text ,
-        ville      Text ,
-        cp         Int ,
-        tel        Varchar (12) ,
-        datebirth  Date ,
-        status     Int ,
-        createdate Date ,
+create table user(
+        id         int (11) auto_increment  not null ,
+        nom        text ,
+        prenom     text ,
+        email      varchar (150) ,
+        password   text ,
+        adresse    text ,
+        ville      text ,
+        cp         int ,
+        tel        varchar (12) ,
+        datebirth  date ,
+        status     int ,
+        createdate date ,
         civilite enum('Mr','Mme'),
-        PRIMARY KEY (id ) ,
-        UNIQUE (email )
+        primary key (id ) ,
+        unique (email )
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: reservation
-#------------------------------------------------------------
-
-CREATE TABLE reservation(
-        idreservation int (11) Auto_increment  NOT NULL ,
-        id            Int ,
-        name          Text ,
-        idlogement    Int ,
-        item          Text ,
-        start_day     Int ,
-        start_time    Int ,
-        end_day       Int ,
-        end_time      Int ,
-        canceled      Int ,
-        idcontratloc  Int ,
-        PRIMARY KEY (idreservation )
+create table reservation(
+        idreservation int (11) auto_increment  not null ,
+        id            int ,
+        name          text ,
+        idlogement    int ,
+        item          text ,
+        start_day     int ,
+        start_time    int ,
+        end_day       int ,
+        end_time      int ,
+        canceled      int ,
+        idcontratloc  int ,
+        primary key (idreservation )
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: logement
-#------------------------------------------------------------
-
-CREATE TABLE logement(
-        idlogement      int (11) Auto_increment  NOT NULL ,
-        titre           Text ,
-        emplacement     Text ,
-        etage           Text ,
-        prix            Text ,
-        taille          Text ,
-        idtype          Int ,
-        caracteristique Text ,
-        id              Int ,
-        photo           Text ,
-        createdate      Date ,
-        idreservation   Int ,
-        idcontratlog    Int ,
+create table logement(
+        idlogement      int (11) auto_increment  not null ,
+        titre           text ,
+        emplacement     text ,
+        etage           text ,
+        prix            text ,
+        taille          text ,
+        idtype          int ,
+        caracteristique text ,
+        id              int ,
+        photo           text ,
+        createdate      date ,
+        idcontratlog    int ,
         status enum("valide","invalide","en attente") DEFAULT 'en attente',
-        PRIMARY KEY (idlogement )
+        primary key (idlogement )
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: type
-#------------------------------------------------------------
-
-CREATE TABLE type(
-        idtype Int NOT NULL ,
-        nom    Varchar (25) ,
-        PRIMARY KEY (idtype )
+create table type(
+        idtype int not null ,
+        nom    varchar (25) ,
+        primary key (idtype )
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: requestuser
-#------------------------------------------------------------
-
-CREATE TABLE requestuser(
-        idrequ int (11) Auto_increment  NOT NULL ,
-        idreq  Int NOT NULL ,
-        PRIMARY KEY (idrequ ,idreq )
+create table requestuser(
+        idrequ int (11) auto_increment  not null ,
+        idreq  int not null ,
+        primary key (idrequ ,idreq )
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: requestlogement
-#------------------------------------------------------------
-
-CREATE TABLE requestlogement(
-        idreql int (11) Auto_increment  NOT NULL ,
-        idreq  Int NOT NULL ,
-        PRIMARY KEY (idreql ,idreq )
+create table requestlogement(
+        idreql int (11) auto_increment  not null ,
+        idreq  int not null ,
+        primary key (idreql ,idreq )
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: request
-#------------------------------------------------------------
-
-CREATE TABLE request(
-        idreq      int (11) Auto_increment  NOT NULL ,
-        createdate Date ,
-        id         Int ,
-        email      Varchar (25) ,
-        idlogement Int ,
+create table request(
+        idreq      int (11) auto_increment  not null ,
+        createdate date ,
+        id         int,
+        email      text,
+        idlogement int ,
         status enum('En attente','Valide logement','Invalide logement','Valide user','Invalide user') DEFAULT 'En attente',
-        PRIMARY KEY (idreq )
+        primary key (idreq )
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: admin
-#------------------------------------------------------------
-
-CREATE TABLE admin(
-        id Int NOT NULL ,
-        PRIMARY KEY (id )
+create table admin(
+        id int not null ,
+        primary key (id )
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: client
-#------------------------------------------------------------
-
-CREATE TABLE client(
-        id Int NOT NULL ,
-        PRIMARY KEY (id )
+create table client(
+        id int not null ,
+        primary key (id )
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: proprietaire
-#------------------------------------------------------------
-
-CREATE TABLE proprietaire(
-        id Int NOT NULL ,
-        PRIMARY KEY (id )
+create table proprietaire(
+        id int not null ,
+        primary key (id )
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: contratlocation
-#------------------------------------------------------------
-
-CREATE TABLE contratlocation(
-        idcontratloc    int (11) Auto_increment  NOT NULL ,
-        idreservation   Int ,
-        idlogement      Int ,
-        createdate      Date ,
-        PRIMARY KEY (idcontratloc )
+create table contratlocation(
+        idcontratloc    int (11) auto_increment  not null ,
+        idreservation   int ,
+        idlogement      int ,
+        createdate      date ,
+        primary key (idcontratloc )
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: contratlogement
-#------------------------------------------------------------
-
-CREATE TABLE contratlogement(
-        idcontratlog int (11) Auto_increment  NOT NULL ,
-        id           Int ,
-        idlogement   Int ,
-        createdate   Date ,
-        PRIMARY KEY (idcontratlog )
+create table contratlogement(
+        idcontratlog int (11) auto_increment  not null ,
+        id           int ,
+        idlogement   int ,
+        createdate   date ,
+        primary key (idcontratlog )
 )ENGINE=InnoDB;
 
-ALTER TABLE reservation ADD CONSTRAINT FK_reservation_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE reservation ADD CONSTRAINT FK_reservation_idcontratloc FOREIGN KEY (idcontratloc) REFERENCES contratlocation(idcontratloc);
-ALTER TABLE logement ADD CONSTRAINT FK_logement_idtype FOREIGN KEY (idtype) REFERENCES type(idtype);
-ALTER TABLE logement ADD CONSTRAINT FK_logement_idcontratlog FOREIGN KEY (idcontratlog) REFERENCES contratlogement(idcontratlog);
-ALTER TABLE requestuser ADD CONSTRAINT FK_requestuser_idreq FOREIGN KEY (idreq) REFERENCES request(idreq);
-ALTER TABLE requestlogement ADD CONSTRAINT FK_requestlogement_idreq FOREIGN KEY (idreq) REFERENCES request(idreq);
-ALTER TABLE request ADD CONSTRAINT FK_request_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE admin ADD CONSTRAINT FK_admin_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE client ADD CONSTRAINT FK_client_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE proprietaire ADD CONSTRAINT FK_proprietaire_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE contratlocation ADD CONSTRAINT FK_contratlocation_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
-ALTER TABLE contratlocation ADD CONSTRAINT FK_contratlocation_idreservation FOREIGN KEY (idreservation) REFERENCES reservation(idreservation);
-ALTER TABLE contratlogement ADD CONSTRAINT FK_contratlogement_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE reservation ADD CONSTRAint FK_reservation_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE reservation ADD CONSTRAint FK_reservation_idcontratloc FOREIGN KEY (idcontratloc) REFERENCES contratlocation(idcontratloc);
+ALTER TABLE logement ADD CONSTRAint FK_logement_idtype FOREIGN KEY (idtype) REFERENCES type(idtype);
+ALTER TABLE logement ADD CONSTRAint FK_logement_idcontratlog FOREIGN KEY (idcontratlog) REFERENCES contratlogement(idcontratlog);
+ALTER TABLE requestuser ADD CONSTRAint FK_requestuser_idreq FOREIGN KEY (idreq) REFERENCES request(idreq);
+ALTER TABLE requestlogement ADD CONSTRAint FK_requestlogement_idreq FOREIGN KEY (idreq) REFERENCES request(idreq);
+ALTER TABLE request ADD CONSTRAint FK_request_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE admin ADD CONSTRAint FK_admin_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE client ADD CONSTRAint FK_client_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE proprietaire ADD CONSTRAint FK_proprietaire_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE contratlocation ADD CONSTRAint FK_contratlocation_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
+ALTER TABLE contratlocation ADD CONSTRAint FK_contratlocation_idreservation FOREIGN KEY (idreservation) REFERENCES reservation(idreservation);
+ALTER TABLE contratlogement ADD CONSTRAint FK_contratlogement_id FOREIGN KEY (id) REFERENCES user(id);
 
 
-INSERT INTO type(idtype,nom) VALUES
+INSERT into type(idtype,nom) VALUES
   (1,"Appartement"),
   (2,"Chalet"),
   (3,"Maison");
 
-INSERT INTO `user` (`id`, `nom`, `prenom`, `email`, `password`, `civilite`, `adresse`, `ville`, `cp`, `tel`, `datebirth`, `status`, `createdate`) VALUES
+INSERT into `user` (`id`, `nom`, `prenom`, `email`, `password`, `civilite`, `adresse`, `ville`, `cp`, `tel`, `datebirth`, `status`, `createdate`) VALUES
   (1, 'DETEST', 'Joe', 'joe@test.fr', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mr', '27 rue Hector Bleu', 'PARIS', 95300, '0745676858', '2018-03-06', 9, '2018-03-04'),
   (2, 'BADI', 'Bado', 'bado@mail.test', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mr', '24 rue bien', 'PARIS', 95300, '0745676858', '2018-03-06', 0, '2018-03-04');
 
-INSERT INTO `logement` (`idlogement`, `titre`, `emplacement`, `etage`, `prix`, `taille`, `idtype`, `caracteristique`, `id`, `photo`, `createdate`, `status`, `idreservation`) VALUES
-  (1, 'Chalet Ancien Rustique', 'Alpes', '1 etage', '12EUR', '100', 2, 'Beau', 2, './photos/0364393c078aa2bed12e82f7c3fc9efc', '2018-03-04', 'en attente', NULL),
-  (2, 'Chalet Ancien Rustique', 'Alpes', '1er', '12EUR', '100', 2, 'beau', 2, './photos/71ce3ce7b8df56795f26005b53bea16c', '2018-03-04', 'en attente', NULL),
-  (3, 'Chalet Ancien Rustique', 'Alpes', '1er', '12EUR', '100', 2, 'beau', 2, './photos/455e981c88f0e5db165c03f7fa55eaa1', '2018-03-04', 'invalide', NULL),
-  (4, 'Appartement Spacieux', 'Alpes', '1er', '11EUR', '100', 1, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', 'valide', NULL);
-
-
+INSERT into `logement` (`idlogement`, `titre`, `emplacement`, `etage`, `prix`, `taille`, `idtype`, `caracteristique`, `id`, `photo`, `createdate`, `idcontratlog`, `status`) VALUES
+  (4, 'Chalet', 'Pyrénnées', '1er', '30EUR', '100', 2, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', NULL, 'valide'),
+  (5, 'Appartement Rustique', 'Jura', '3e', '28EUR', '70', 1, 'Rustique, chaleureux, et plein ouest sur le flanc de la montagne. ', 1, './photos/61f30745a786ad5604c0bacf2ba0118d', '2018-04-03', NULL, 'valide'),
+  (6, 'Maison en Bois', 'Massif Central', '2 etages', '20EUR', '145', 3, 'Dans un coin calme, au milieu de la nature', 1, './photos/0f113d9fde4be7527e057cd604db040a', '2018-04-04', NULL, 'en attente');
 
 drop trigger if exists updaterequest;
 delimiter //
