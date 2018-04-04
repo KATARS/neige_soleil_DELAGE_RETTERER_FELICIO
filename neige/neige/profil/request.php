@@ -14,6 +14,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
       <link href="../style.css" rel="stylesheet" type="text/css">
+      <link href="../logement/calendrier/style_calendrier.css" rel="stylesheet" type="text/css">
     </head>
       <title>Requete</title>
     </head>
@@ -50,13 +51,13 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       case 1:
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
-        $reponse = $bdd->prepare('SELECT * FROM requestuser WHERE status = "En attente";');
+        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "En attente" AND idlogement IS NULL;');
         $reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
         ?>
           <table border="2">
             <tr>
+              <td>Id Req</td>
               <td>Id User</td>
-              <td>Id Requ</td>
               <td>Email user</td>
               <td>Date de demande</td>
               <td>Status</td>
@@ -64,8 +65,8 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             <?php
             while ($data = $reponse->fetch())
             {
-              echo "<tr><td>".$data['id']."</td>";
-              echo "<td>".$data['idrequ']."</td>";
+              echo "<tr><td>".$data['idreq']."</td>";
+              echo "<td>".$data['id']."</td>";
               echo "<td>".$data['email']."</td>";
               echo "<td>".$data['createdate']."</td>";
               echo "<td>".$data['status']."</td></tr>";
@@ -74,7 +75,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             if(isset($_POST['Valider']))
             {
               $id = $_POST['id'];
-              $update = $bdd->prepare("UPDATE requestuser SET requestuser.status='Valider' WHERE idrequ = ?");
+              $update = $bdd->prepare("UPDATE request SET request.status='Valide user' WHERE idreq = ?");
               $update->bindValue(1, $id, PDO::PARAM_INT);
               $update->execute();
               echo "<h6>Reussie</h6>";
@@ -82,7 +83,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             if(isset($_POST['Refuser']))
             {
               $id = $_POST['id'];
-              $delete = $bdd->prepare("UPDATE requestuser SET requestuser.status='Refuser' WHERE idrequ = ?");
+              $delete = $bdd->prepare("UPDATE request SET request.status='Invalide user' WHERE idreq = ?");
               $delete->bindValue(1, $id, PDO::PARAM_INT);
               $delete->execute();
               echo "<h6>Reussie</h6>";
@@ -91,7 +92,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
           </table></br>
           <p>Pour effectuer une action sur une demande,</br>Veuillez renseigner son ID</p>
           <form class="" action="" method="post">
-            <label for="id">Renseigner ID Requ</label>
+            <label for="id">Renseigner ID Req</label>
             <input type="text" name="id" value="" pattern="^[_0-9]{1,}$" minlength="1" maxlength="5"required></br></br>
             <button type="submit" class="btn btn-primary" name="Valider">Autoriser</button>
             <button type="submit" class="btn btn-danger" name="Refuser">Refuser</button>
@@ -105,23 +106,23 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       case 2:
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
-        $reponse = $bdd->prepare('SELECT * FROM requestuser WHERE status = "Valider";');
+        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "Valide user";');
         $reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
         ?>
           <table border="2">
             <tr>
+              <td>Id Req</td>
               <td>Id User</td>
               <td>Email user</td>
-              <td>Id Req</td>
               <td>Date de demande</td>
               <td>Status</td>
             </tr>
             <?php
             while ($data = $reponse->fetch())
             {
-              echo "<tr><td>".$data['id']."</td>";
+              echo "<tr><td>".$data['idreq']."</td>";
+              echo "<td>".$data['id']."</td>";
               echo "<td>".$data['email']."</td>";
-              echo "<td>".$data['idrequ']."</td>";
               echo "<td>".$data['createdate']."</td>";
               echo "<td>".$data['status']."</td></tr>";
             }
@@ -137,7 +138,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       case 3:
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
-        $reponse = $bdd->prepare('SELECT * FROM requestuser WHERE status = "Refuser";');
+        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "Invalide user";');
         $reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
         ?>
           <table border="2">
@@ -153,7 +154,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             {
               echo "<tr><td>".$data['id']."</td>";
               echo "<td>".$data['email']."</td>";
-              echo "<td>".$data['idrequ']."</td>";
+              echo "<td>".$data['idreq']."</td>";
               echo "<td>".$data['createdate']."</td>";
               echo "<td>".$data['status']."</td></tr>";
             }
@@ -169,13 +170,13 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       case 4:
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
-        $reponse = $bdd->prepare('SELECT * FROM requestlogement WHERE status = "En attente";');
+        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "En attente" AND idlogement IS NOT NULL;');
         $reponse->execute(); //recupere toute les info du logement qui correspond a id de session en cours
         ?>
           <table border="2">
             <tr>
+              <td>Id Req</td>
               <td>Id User</td>
-              <td>Id Reql</td>
               <td>Email user</td>
               <td>Date de demande</td>
               <td>Status</td>
@@ -183,8 +184,8 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             <?php
             while ($data = $reponse->fetch())
             {
-              echo "<tr><td>".$data['id']."</td>";
-              echo "<td>".$data['idreql']."</td>";
+              echo "<tr><td>".$data['idreq']."</td>";
+              echo "<td>".$data['id']."</td>";
               echo "<td>".$data['email']."</td>";
               echo "<td>".$data['createdate']."</td>";
               echo "<td>".$data['status']."</td></tr>";
@@ -193,7 +194,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             if(isset($_POST['Valide']))
             {
               $id = $_POST['id'];
-              $update = $bdd->prepare("UPDATE requestlogement SET requestlogement.status='Valide' WHERE idreql = ?");
+              $update = $bdd->prepare("UPDATE request SET request.status='Valide logement' WHERE idreq = ?");
               $update->bindValue(1, $id, PDO::PARAM_INT);
               $update->execute();
               echo "<h6>Reussie</h6>";
@@ -201,7 +202,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             if(isset($_POST['Invalide']))
             {
               $id = $_POST['id'];
-              $delete = $bdd->prepare("UPDATE requestlogement SET requestlogement.status='Invalide' WHERE idreql = ?");
+              $delete = $bdd->prepare("UPDATE request SET request.status='Invalide logement' WHERE idreq = ?");
               $delete->bindValue(1, $id, PDO::PARAM_INT);
               $delete->execute();
               echo "<h6>Reussie</h6>";
@@ -210,7 +211,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
           </table></br>
           <p>Pour effectuer une action sur une demande,</br>Veuillez renseigner son ID</p>
           <form class="" action="" method="post">
-            <label for="id">Renseigner ID Reql </label>
+            <label for="id">Renseigner ID Req</label>
             <input type="text" name="id" value="" pattern="^[_0-9]{1,}$" minlength="1" maxlength="5"required></br></br>s
             <button type="submit" class="btn btn-primary" name="Valide">Valide</button>
             <button type="submit" class="btn btn-danger" name="Invalide">Invalide</button>
@@ -224,29 +225,31 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       case 5:
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
-        $reponse = $bdd->prepare('SELECT * FROM requestlogement WHERE status = "Valide";');
+        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "Valide logement";');
         $reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
         ?>
-          <table border="2">
-            <tr>
-              <td>Id User</td>
-              <td>Email user</td>
-              <td>Id Req</td>
-              <td>Date de demande</td>
-              <td>Status</td>
-            </tr>
-            <?php
-            while ($data = $reponse->fetch())
-            {
-              echo "<tr><td>".$data['id']."</td>";
-              echo "<td>".$data['email']."</td>";
-              echo "<td>".$data['idreql']."</td>";
-              echo "<td>".$data['createdate']."</td>";
-              echo "<td>".$data['status']."</td></tr>";
-            }
-            $reponse->closeCursor();
-            ?>
-          </table>
+        <table border="2">
+          <tr>
+            <td>Id Req</td>
+            <td>Id Logement</td>
+            <td>Id User</td>
+            <td>Email user</td>
+            <td>Date de demande</td>
+            <td>Status</td>
+          </tr>
+          <?php
+          while ($data = $reponse->fetch())
+          {
+            echo "<tr><td>".$data['idreq']."</td>";
+            echo "<td>".$data['idlogement']."</td>";
+            echo "<td>".$data['id']."</td>";
+            echo "<td>".$data['email']."</td>";
+            echo "<td>".$data['createdate']."</td>";
+            echo "<td>".$data['status']."</td></tr>";
+          }
+          $reponse->closeCursor();
+          ?>
+        </table>
         <?php
       }
       else {
@@ -256,23 +259,25 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       case 6:
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
-        $reponse = $bdd->prepare('SELECT * FROM requestlogement WHERE status = "Invalide";');
+        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "Invalide logement";');
         $reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
         ?>
           <table border="2">
             <tr>
+              <td>Id Req</td>
+              <td>Id Logement</td>
               <td>Id User</td>
               <td>Email user</td>
-              <td>Id Req</td>
               <td>Date de demande</td>
               <td>Status</td>
             </tr>
             <?php
             while ($data = $reponse->fetch())
             {
-              echo "<tr><td>".$data['id']."</td>";
+              echo "<tr><td>".$data['idreq']."</td>";
+              echo "<td>".$data['idlogement']."</td>";
+              echo "<td>".$data['id']."</td>";
               echo "<td>".$data['email']."</td>";
-              echo "<td>".$data['idreql']."</td>";
               echo "<td>".$data['createdate']."</td>";
               echo "<td>".$data['status']."</td></tr>";
             }

@@ -35,9 +35,6 @@ if(isset($_POST['executeconnect'])) //submit
 	}
 }
 ?>
-<html>
-
-	<body>
 <div class="container-fluid">
   <form class="form-signin"method ="post" action ="">
     <h2 class="form-signin-heading">Connectez vous</h2>
@@ -50,5 +47,3 @@ if(isset($_POST['executeconnect'])) //submit
 		<button type="reset" class="btn btn-warning btn-block" name="reset">Réinitialiser</button>
   </form>
 </div>
-
-</body>

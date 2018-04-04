@@ -60,7 +60,7 @@ if(isset($_GET['idtype']) AND $_GET['idtype'] > 0)
 		  </div>
 		  <a href="logement.php?idlogement='.$donnees["idlogement"].'"><img src="../profil/'.$donnees["photo"].'" alt="Card image"></a>
 		  <div class="card-body">
-		    <p class="card-text">A partir de '.$donnees["prix"].'€ par jour</p>
+		    <p class="card-text">A partir de '.$donnees["prix"].' par jour</p>
 		  </div>
 		</div>';
 		}

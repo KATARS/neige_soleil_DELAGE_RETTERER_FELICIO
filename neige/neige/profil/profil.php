@@ -11,75 +11,6 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 	?>
 	<html>
 		<head>
-		<style>
-		html *
-		{
-		   font-family: Arial !important;
-		}
-		table.calendar {
-			border-left: 1px solid #999;
-		  background-color: #b2b2b2;
-		}
-		table tr{
-		  background-color: #b2b2b2;
-		  color: black;
-		  text-align: center;
-		}
-		tr.calendar-row {
-		}
-		td.calendar-day {
-			min-height: 80px;
-			font-size: 11px;
-			position: relative;
-			vertical-align: top;
-		}
-		* html div.calendar-day {
-			height: 80px;
-		}
-		td.calendar-day:hover {
-			background: white;
-		}
-		td.calendar-day-np {
-			background: grey;
-			min-height: 80px;
-		}
-		* html div.calendar-day-np {
-			height: 80px;
-		}
-		td.calendar-day-head {
-			background: white;
-			font-weight: bold;
-		  color: black;
-			text-align: center;
-			width: 120px;
-			padding: 5px;
-			border-bottom: 1px solid #999;
-			border-top: 1px solid #999;
-			border-right: 1px solid #999;
-		}
-		div.day-number {
-			background: #999;
-			padding: 5px;
-			color: #fff;
-			font-weight: bold;
-			float: right;
-			margin: -5px -5px 0 0;
-			width: 20px;
-			text-align: center;
-		}
-		td.calendar-day, td.calendar-day-np {
-			width: 120px;
-			padding: 5px;
-			border-bottom: 1px solid #999;
-			border-right: 1px solid #999;
-		}
-		</style>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-		<title>Reservation</title>
-		<link href="calendrier/jquery-ui.css" rel="stylesheet">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-		<script src="calendrier/jquery-ui.js"></script>
-		<!--<script src="lang/datepicker-fi.js"></script>-->
 		<script>
 		    $(function() {
 			<!--$.datepicker.setDefaults($.datepicker.regional['fi']);-->
@@ -107,6 +38,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 		<link href="../logement/calendrier/jquery-ui.css" rel="stylesheet">
 		<script src="../logement/calendrier/jquery-ui.js"></script>
+		<link href="../logement/calendrier/style_calendrier.css" rel="stylesheet">
 		<link href="../style.css" rel="stylesheet" type="text/css">
 	</head>
 	  <body>
@@ -174,7 +106,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 		    break;
 				case 2:
 				?>
-				<input type="button" id="hideshow" value="Voir Calendrier">
+				<button type="button" class="btn btn-success btn-lg" id="hideshow">Voir Calendrier</button>
 				<script type="text/javascript">
 				jQuery(document).ready(function(){
 				        jQuery('#hideshow').on('click', function(event) {
@@ -278,7 +210,6 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 				  	/* all done, return result */
 				  	return $calendar;
 				  }
-
 				  require("../logement/calendrier/config.php");
 
 				  $d = new DateTime(date("Y-m-d"));
@@ -288,7 +219,18 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 				  $d->modify( 'first day of next month' );
 				  echo '<h3>' . $months[$d->format('n')-1] . ' ' . $d->format('Y') . '</h3>';
 				  echo draw_calendar($d->format('m'),$d->format('Y'));
-
+					?>
+					<br/>
+					<button type="button" class="btn btn-info btn-lg" id="hideshow2">Afficher plus/moins</button>
+					<script type="text/javascript">
+					jQuery(document).ready(function(){
+					        jQuery('#hideshow2').on('click', function(event) {
+					             jQuery('#content2').toggle('show');
+					        });
+					    });
+					</script>
+					<div id="content2" style="display:none">
+						<?php
 				  $d->modify( 'first day of next month' );
 				  echo '<h3>' . $months[$d->format('n')-1] . ' ' . $d->format('Y') . '</h3>';
 				  echo draw_calendar($d->format('m'),$d->format('Y'));
@@ -298,8 +240,30 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 				  echo draw_calendar($d->format('m'),$d->format('Y'));
 
 				  ?>
+					<br/>
+					<button type="button" class="btn btn-info btn-lg" id="hideshow3">Afficher plus/moins</button>
+					<script type="text/javascript">
+					jQuery(document).ready(function(){
+					        jQuery('#hideshow3').on('click', function(event) {
+					             jQuery('#content3').toggle('show');
+					        });
+					    });
+					</script>
+					<div id="content3" style="display:none"><?php
+				  $d->modify( 'first day of next month' );
+				  echo '<h3>' . $months[$d->format('n')-1] . ' ' . $d->format('Y') . '</h3>';
+				  echo draw_calendar($d->format('m'),$d->format('Y'));
+				  $d->modify( 'first day of next month' );
 
-				</div> <?php
+				  echo '<h3>' . $months[$d->format('n')-1] . ' ' . $d->format('Y') . '</h3>';
+				  echo draw_calendar($d->format('m'),$d->format('Y'));
+
+					echo'<h3>Fin de saison été</h3>';
+
+				  ?></div>
+					</div>
+				</div>
+				<?php
 		    break;
 				case 3:
 				$_SESSION = array(); //recupere la session en cours
@@ -345,7 +309,8 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 				}
 		    break;
 			  }
-	    ?></center>
+	    ?>
+		<br/><br/></center>
 	  	</body>
 		</html>
 	<?php

@@ -14,6 +14,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
       <link href="../style.css" rel="stylesheet" type="text/css">
+      <link href="../logement/calendrier/style_calendrier.css" rel="stylesheet" type="text/css">
     </head>
       <body></br><center>
         <h1>Panel Admin</h1></br>

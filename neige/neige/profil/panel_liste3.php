@@ -34,14 +34,18 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
           echo "<td>".$data['taille']."</td>";
           echo "<td>".$data['idtype']."</td>";
           echo "<td>".$data['caracteristique']."</td>";
-					echo "<td>".$data['photo']."</td>";
+					echo "<td><div class='col-lg-4'>
+						<img width='300px' src=".$data['photo']."><br/>
+						</div>
+						<div class='col-lg-8'></td>";
 					echo "<td>".$data['status']."</td></tr>";
 				}
+
 				$reponse->closeCursor();
 				if(isset($_POST['delete']))
 				{
 					$id = $_POST['id'];
-					$update = $bdd->prepare("DELETE FROM user WHERE id = ?");
+					$update = $bdd->prepare("DELETE FROM logement WHERE idlogement = ?");
 					$update->bindValue(1, $id, PDO::PARAM_INT);
 					$update->execute();
 					echo "<h6>Reussie</h6>";
@@ -52,10 +56,11 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 			<form class="" action="" method="post">
 				<label for="id">Renseigner ID</label>
 				<input type="text" name="id" value="" pattern="^[_0-9]{1,}$" minlength="1" maxlength="5"required></br>
-				<button type="submit" class="btn btn-danger" name="delete">Supprimer</button>
+				<button type="submit" class="btn btn-danger" name="delete" onclick="return confirm('Etes vous sur ?');">Supprimer</button>
 			</form>
       </table>
     </center>
+
 	<?php
 	}
 	else

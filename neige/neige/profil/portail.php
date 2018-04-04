@@ -14,7 +14,7 @@ else {
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
   <link href="../style.css" rel="stylesheet" type="text/css">
 </head>
-  <body>
+  <body><center>
     <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -60,7 +60,7 @@ else {
     include("inscription.php");
     break;
   }
-  ?>
+  ?></center>
   </body>
 </html>
 <?php

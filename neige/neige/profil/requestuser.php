@@ -7,13 +7,13 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0) //recupere id de session si i
     $id = $_SESSION['id'];
 		$email = $_SESSION['email'];
 	  $createdate = date('Y-m-d');
-  	$insertrequest = $bdd->prepare('INSERT INTO requestuser(id,email,createdate)
+  	$insertrequest = $bdd->prepare('INSERT INTO request(id,email,createdate)
     VALUES(?,?,?)') or die(print_r($bdd->errorInfo()));
 		$insertrequest->bindValue(1, $id, PDO::PARAM_INT);
   	$insertrequest->bindValue(2, $email, PDO::PARAM_STR);
   	$insertrequest->bindValue(3, $createdate, PDO::PARAM_STR);
   	$insertrequest->execute();
-  	echo "<h6>Demande envoyée !</h6><p>Vous aurez une réponse sous 24h.</p>";
+  	echo "<h3>Demande envoyée !</h3><p>Vous aurez une réponse sous 24h.</p>";
   }
   ?>
   <center>

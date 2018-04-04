@@ -76,7 +76,6 @@ if(isset($_POST['execute']))
 }
 ?>
 <h2> Inscription </h2></br>
-<center>
 	<div class="container-fluid">
 	<form method ="post" action ="">
 	  <table>
@@ -137,4 +136,3 @@ if(isset($_POST['execute']))
 	  </table>
 	</form>
 </div>
-</center>
