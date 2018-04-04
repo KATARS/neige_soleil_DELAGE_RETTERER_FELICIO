@@ -78,11 +78,13 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
         <span class="label label-info">Region</span>
         <?php echo stripslashes(htmlspecialchars($data['emplacement'])); ?>
         <br/>
-        <span class="label label-info">Taille (en m²)</span>
-        <?php echo stripslashes(htmlspecialchars($data['taille'])); ?>
+        <span class="label label-info">Taille</span>
+        <?php echo stripslashes(htmlspecialchars($data['taille']));
+        echo "m²"; ?>
         <br/>
         <span class="label label-info">Prix (en €/jour)</span>
-        <?php echo stripslashes(htmlspecialchars($data['prix'])); ?>
+        <?php echo stripslashes(htmlspecialchars($data['prix']));
+        echo "€"; ?>
         <br/>
         <span class="label label-info">Caracteristiques</span>
         <?php echo stripslashes(htmlspecialchars($data['caracteristique'])); ?>
@@ -96,8 +98,8 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
         $name = $infouser['nom'];
     		$iduser = $infouser['id'];
     		$email = $infouser['email'];
-        $idlogement = $data['idlogement'];
         $item = $data['titre'];
+        $idlogement = $data['idlogement'];
         include("calendrier.php");
       }
     else {

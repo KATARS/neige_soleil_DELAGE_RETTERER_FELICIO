@@ -28,7 +28,6 @@
     });
   });  </script>
 </head>
-
 <body>
   <?php
   if (isset($_POST['book'])) {
@@ -43,9 +42,8 @@
 
   		$start_epoch = $start_day + $start_time;
   		$end_epoch = $end_day + $end_time;
-
   		// prevent double booking
-  		$sql = $bdd->prepare("SELECT * FROM reservation WHERE idlogement = ? AND (start_day>=$start_day OR end_day>=$start_day) AND canceled=0;") or die(print_r($bdd->errorInfo()));;
+  		$sql = $bdd->prepare("SELECT * FROM reservation WHERE idlogement = ? AND (start_day>=$start_day OR end_day>=$start_day) AND canceled=0;");
       $sql->bindValue(1,$idlogement,PDO::PARAM_INT);
   		$sql->execute();
   		if ($sql->rowCount() > 0) {
@@ -53,12 +51,12 @@
   			while($row = $sql->fetch()) {
   				for ($i = $start_epoch; $i <= $end_epoch; $i=$i+600) {
   					if ($i>($row["start_day"]+$row["start_time"]) && $i<($row["end_day"]+$row["end_time"])) {
-              $sql->closeCursor();
-              die;
+            $sql->closeCursor();  
             }
   				}
-  			}
-  		}
+  			} echo "Bien indispo";
+  		} else {
+
       $insertres = $bdd->prepare("INSERT INTO reservation(start_day,start_time,end_day,end_time,idlogement,item,id,name)
         VALUES (?,?,?,?,?,?,?,?)");
       $insertres->bindValue(1, $start_day, PDO::PARAM_INT);
@@ -71,7 +69,7 @@
       $insertres->bindValue(8, $name, PDO::PARAM_STR);
       $insertres->execute();
       echo "Reservation réussie";
-
+    }
   	}
   }
   ?>
@@ -90,7 +88,7 @@
         <tr>
 					<td>&nbsp;</td>
 					<td> <select name="start_hour">
-			<option selected="selected">00</option>
+			<option selected="selected">12</option>
 			<option>01</option>
 			<option>02</option>
 			<option>03</option>
@@ -143,27 +141,16 @@
 			<option>20</option>
 			<option>21</option>
 			<option>22</option>
-			<option selected="selected">23</option>
+			<option selected="selected">12</option>
 			</select>:<select name="end_minute">
 			<option>00</option>
-			<option selected="selected">30</option>
+			<option selected="selected">00</option>
     </select></td></tr>
   </table><table><tr>
     <td><button type="submit" class="btn btn-primary btn-lg" name="book">Reserver</button></td>
     <td><h4>Veuillez verifier le calendrier avant de selectionner des dates</h4></td>
   </tr>
 		</form>
-		<!--<td valign="top">
-		<h3>Cancel booking</h3>
-		<form action="cancel.php" method="post">
-			<p></p>
-			ID: <input name="id" required="" type="text" /><br />
-			<p>
-			<img id="captchaimg2" src="captcha_code_file2.php?rand=<?php echo rand(); ?>" /><br>
-			<input id="captcha2" name="captcha2" required="" type="text" /></p>
-			<p><input name="cancel" type="submit" value="Cancel" /></p>
-		</form>
-  </td>-->
 	</tr>
 </table>
 <button type="button" class="btn btn-success btn-lg" id="hideshow">Voir Calendrier</button>
@@ -215,7 +202,6 @@ jQuery(document).ready(function(){
         $current_epoch = mktime(0,0,0,$month,$list_day,$year);
 
         $idlogement = $_GET['idlogement'];
-
         $sql = $bdd->prepare("SELECT * FROM reservation WHERE idlogement = ? AND $current_epoch BETWEEN start_day AND end_day;");
         $sql->bindValue(1, $idlogement, PDO::PARAM_INT);
         $sql->execute();

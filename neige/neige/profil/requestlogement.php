@@ -71,11 +71,11 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0) //recupere id de session si i
         </tr>
         <tr>
           <td><label for="prix">Prix (en €/jour) :</label></td>
-          <td><input type="text" name="prix" value="" pattern="^[_€0-9]{1,}$" placeholder="€/jours" required></td>
+          <td><input type="text" name="prix" value="" pattern="^[_0-9]{1,}$" placeholder="€/jours" required></td>
         </tr>
         <tr>
           <td><label for="taille">Taille (en m²) :</label></td>
-          <td><input type="text" name="taille" value="" placeholder="m²" pattern="^[_m²0-9]{1,}$" minlength="1" maxlength="5" required></td>
+          <td><input type="text" name="taille" value="" placeholder="m²" pattern="^[_0-9]{1,}$" minlength="1" maxlength="5" required></td>
         </tr>
         <tr>
           <td><label for="type">Type :</label></td>
