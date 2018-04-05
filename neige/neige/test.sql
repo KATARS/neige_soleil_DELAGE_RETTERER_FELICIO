@@ -190,3 +190,13 @@ where user.id=logement.id and logement.idlogement=new.idlogement;
 insert into request(createdate,id,email,idlogement) values(sysdate(),new.id,mail,new.idlogement);
 end //
 delimiter ; 
+
+drop trigger if exists gestcontratloc;
+delimiter //
+create trigger gestcontratloc
+after insert on reservation 
+for each row 
+begin 
+insert into contratlocation(idreservation,idlogement,createdate) values(new.idreservation,new.idlogement,sysdate());
+end //
+delimiter ;
