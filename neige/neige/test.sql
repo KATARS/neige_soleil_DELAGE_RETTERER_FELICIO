@@ -30,7 +30,7 @@ create table reservation(
         start_time    int ,
         end_day       int ,
         end_time      int ,
-        canceled      int ,
+        canceled      int default 0,
         idcontratloc  int ,
         primary key (idreservation )
 )ENGINE=InnoDB;
@@ -132,45 +132,46 @@ INSERT into type(idtype,nom) VALUES
   (3,"Maison");
 
 INSERT into `user` (`id`, `nom`, `prenom`, `email`, `password`, `civilite`, `adresse`, `ville`, `cp`, `tel`, `datebirth`, `status`, `createdate`) VALUES
-  (1, 'DETEST', 'Joe', 'joe@test.fr', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mr', '27 rue Hector Bleu', 'PARIS', 95300, '0745676858', '2018-03-06', 9, '2018-03-04'),
-  (2, 'BADI', 'Bado', 'bado@mail.test', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mr', '24 rue bien', 'PARIS', 95300, '0745676858', '2018-03-06', 0, '2018-03-04');
+  (1, 'DETEST', 'Joe', 'joe@test.fr', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mr', '27 rue Hector Bleu', 'VILLTANEUSE', 95250, '0134567542', '1985-03-06', 9, '2018-03-04'),
+  (2, 'BADI', 'Bado', 'bado@mail.com', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mme', '43 rue Victor Vert', 'CROSNES', 91300, '0645342858', '1976-05-16', 0, '2018-03-04'),
+  (3, 'BLANC', 'Jean', 'jean@blanc.fr', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mr', '24 rue bien', 'MARSEILLES', 13001, '0745676858', '1969-03-06', 1, '2018-04-04');
 
 INSERT into `logement` (`idlogement`, `titre`, `emplacement`, `etage`, `prix`, `taille`, `idtype`, `caracteristique`, `id`, `photo`, `createdate`, `idcontratlog`, `status`) VALUES
-  (4, 'Chalet', 'Pyrénnées', '1er', '30EUR', '100', 2, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', NULL, 'valide'),
-  (5, 'Appartement Rustique', 'Jura', '3e', '28EUR', '70', 1, 'Rustique, chaleureux, et plein ouest sur le flanc de la montagne. ', 1, './photos/61f30745a786ad5604c0bacf2ba0118d', '2018-04-03', NULL, 'valide'),
-  (6, 'Maison en Bois', 'Massif Central', '2 etages', '20EUR', '145', 3, 'Dans un coin calme, au milieu de la nature', 1, './photos/0f113d9fde4be7527e057cd604db040a', '2018-04-04', NULL, 'en attente');
+  (1, 'Chalet', 'Pyrénnées', '1er', '30EUR', '100', 2, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', NULL, 'valide'),
+  (2, 'Appartement Rustique', 'Jura', '3e', '28EUR', '70', 1, 'Rustique, chaleureux, et plein ouest sur le flanc de la montagne. ', 1, './photos/61f30745a786ad5604c0bacf2ba0118d', '2018-04-03', NULL, 'valide'),
+  (3, 'Maison en Bois', 'Massif Central', '2 etages', '20EUR', '145', 3, 'Dans un coin calme, au milieu de la nature', 1, './photos/0f113d9fde4be7527e057cd604db040a', '2018-04-04', NULL, 'valide');
 
 drop trigger if exists updaterequest;
 delimiter //
 create trigger updaterequest
-after update on request 
-for each row 
-begin 
+after update on request
+for each row
+begin
 declare validite text;
-select status into validite 
+select status into validite
 from request where request.idreq=old.idreq;
-if validite = 'Valide user' 
+if validite = 'Valide user'
 then
-update user 
-set status='1' 
+update user
+set status='1'
 where id=old.id;
 end if;
-if validite = 'Invalide user' 
+if validite = 'Invalide user'
 then
-update user 
-set status='0' 
+update user
+set status='0'
 where id=old.id;
 end if;
-if validite = 'Valide logement' 
+if validite = 'Valide logement'
 then
-update logement 
-set status='valide' 
+update logement
+set status='valide'
 where idlogement=old.idlogement;
 end if;
-if validite = 'Invalide logement' 
+if validite = 'Invalide logement'
 then
-update logement 
-set status='invalide' 
+update logement
+set status='invalide'
 where idlogement=old.idlogement;
 end if;
 end //
@@ -178,25 +179,25 @@ delimiter ;
 
 
 drop trigger if exists insertrequest;
-delimiter // 
-create trigger insertrequest 
+delimiter //
+create trigger insertrequest
 after insert on logement
-for each row 
-begin 
+for each row
+begin
 declare mail varchar(150);
 select user.email into mail
-from user,logement 
+from user,logement
 where user.id=logement.id and logement.idlogement=new.idlogement;
 insert into request(createdate,id,email,idlogement) values(sysdate(),new.id,mail,new.idlogement);
 end //
-delimiter ; 
+delimiter ;
 
 drop trigger if exists gestcontratloc;
 delimiter //
 create trigger gestcontratloc
-after insert on reservation 
-for each row 
-begin 
+after insert on reservation
+for each row
+begin
 insert into contratlocation(idreservation,idlogement,createdate) values(new.idreservation,new.idlogement,sysdate());
 end //
 delimiter ;
