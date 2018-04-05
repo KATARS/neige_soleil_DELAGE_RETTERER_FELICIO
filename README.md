@@ -11,7 +11,7 @@ Projet Neige & Soleil
     - Connection 100%
     - Demande de status 100%
     - Ajout logement 100%
-    - Contrat 100% -> 
+    - Contrat 100%  
     - Droit d'acces 100%
     - "Mes reservations" 100%
  - Reservation 100%
