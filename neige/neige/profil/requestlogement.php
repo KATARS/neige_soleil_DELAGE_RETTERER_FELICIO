@@ -92,7 +92,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0) //recupere id de session si i
         </tr>
         <tr>
           <td><label for="photo">Photo Principale</label></td>
-          <td><input type="file" name="photo"></td>
+          <td><input type="file" name="photo" multiple></td>
         </tr>
         <tr>
           <td></td>

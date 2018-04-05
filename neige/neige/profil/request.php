@@ -170,26 +170,33 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       case 4:
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
-        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "En attente" AND idlogement IS NOT NULL;');
+        $reponse = $bdd->prepare('SELECT * FROM request INNER JOIN logement ON request.status = "En attente" AND request.idlogement IS NOT NULL AND request.idlogement = logement.idlogement;');
         $reponse->execute(); //recupere toute les info du logement qui correspond a id de session en cours
         ?>
-          <table border="2">
-            <tr>
-              <td>Id Req</td>
-              <td>Id User</td>
-              <td>Email user</td>
-              <td>Date de demande</td>
-              <td>Status</td>
-            </tr>
-            <?php
-            while ($data = $reponse->fetch())
-            {
-              echo "<tr><td>".$data['idreq']."</td>";
-              echo "<td>".$data['id']."</td>";
-              echo "<td>".$data['email']."</td>";
-              echo "<td>".$data['createdate']."</td>";
-              echo "<td>".$data['status']."</td></tr>";
-            }
+        <table border="2">
+          <tr>
+            <td>Id Req</td>
+            <td>Id Logement</td>
+            <td>Photo</td>
+            <td>Id User</td>
+            <td>Email user</td>
+            <td>Date de demande</td>
+            <td>Status</td>
+          </tr>
+          <?php
+          while ($data = $reponse->fetch())
+          {
+            echo "<tr><td>".$data['idreq']."</td>";
+            echo "<td>".$data['idlogement']."</td>";
+            echo "<td><div class='col-lg-4'>
+  						<img width='300px' src=".$data['photo']."><br/>
+  						</div>
+  						<div class='col-lg-8'></td>";
+            echo "<td>".$data['id']."</td>";
+            echo "<td>".$data['email']."</td>";
+            echo "<td>".$data['createdate']."</td>";
+            echo "<td>".$data['status']."</td></tr>";
+          }
             $reponse->closeCursor();
             if(isset($_POST['Valide']))
             {
@@ -212,9 +219,9 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
           <p>Pour effectuer une action sur une demande,</br>Veuillez renseigner son ID</p>
           <form class="" action="" method="post">
             <label for="id">Renseigner ID Req</label>
-            <input type="text" name="id" value="" pattern="^[_0-9]{1,}$" minlength="1" maxlength="5"required></br></br>s
+            <input type="text" name="id" value="" pattern="^[_0-9]{1,}$" minlength="1" maxlength="5"required></br></br>
             <button type="submit" class="btn btn-primary" name="Valide">Valide</button>
-            <button type="submit" class="btn btn-danger" name="Invalide">Invalide</button>
+            <button type="submit" class="btn btn-danger" name="Invalide">Invalide</button><br/>
           </form>
         <?php
       }
@@ -291,7 +298,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       }
       break;
     }
-    ?>
+    ?><br/>
   </center>
     </body>
   </html>

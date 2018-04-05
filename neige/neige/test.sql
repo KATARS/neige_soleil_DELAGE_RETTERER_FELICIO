@@ -137,9 +137,9 @@ INSERT into `user` (`id`, `nom`, `prenom`, `email`, `password`, `civilite`, `adr
   (3, 'BLANC', 'Jean', 'jean@blanc.fr', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mr', '24 rue bien', 'MARSEILLES', 13001, '0745676858', '1969-03-06', 1, '2018-04-04');
 
 INSERT into `logement` (`idlogement`, `titre`, `emplacement`, `etage`, `prix`, `taille`, `idtype`, `caracteristique`, `id`, `photo`, `createdate`, `idcontratlog`, `status`) VALUES
-  (1, 'Chalet', 'Pyrénnées', '1er', '30EUR', '100', 2, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', NULL, 'valide'),
-  (2, 'Appartement Rustique', 'Jura', '3e', '28EUR', '70', 1, 'Rustique, chaleureux, et plein ouest sur le flanc de la montagne. ', 1, './photos/61f30745a786ad5604c0bacf2ba0118d', '2018-04-03', NULL, 'valide'),
-  (3, 'Maison en Bois', 'Massif Central', '2 etages', '20EUR', '145', 3, 'Dans un coin calme, au milieu de la nature', 1, './photos/0f113d9fde4be7527e057cd604db040a', '2018-04-04', NULL, 'valide');
+  (1, 'Chalet', 'Pyrénnées', '1er', '30', '100', 2, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', NULL, 'valide'),
+  (2, 'Appartement Rustique', 'Jura', '3e', '28', '70', 1, 'Rustique, chaleureux, et plein ouest sur le flanc de la montagne. ', 1, './photos/61f30745a786ad5604c0bacf2ba0118d', '2018-04-03', NULL, 'valide'),
+  (3, 'Maison en Bois', 'Massif Central', '2 etages', '20', '145', 3, 'Dans un coin calme, au milieu de la nature', 1, './photos/0f113d9fde4be7527e057cd604db040a', '2018-04-04', NULL, 'valide');
 
 drop trigger if exists updaterequest;
 delimiter //
@@ -167,6 +167,7 @@ then
 update logement
 set status='valide'
 where idlogement=old.idlogement;
+insert into contratlogement(id,idlogement,createdate) values(new.id,new.idlogement,sysdate());
 end if;
 if validite = 'Invalide logement'
 then
@@ -176,7 +177,6 @@ where idlogement=old.idlogement;
 end if;
 end //
 delimiter ;
-
 
 drop trigger if exists insertrequest;
 delimiter //

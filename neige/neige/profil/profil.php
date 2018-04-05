@@ -258,7 +258,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 				  echo '<h3>' . $months[$d->format('n')-1] . ' ' . $d->format('Y') . '</h3>';
 				  echo draw_calendar($d->format('m'),$d->format('Y'));
 
-					echo'<h3>Fin de saison été</h3>';
+					echo'<h3>Fin de saison</h3>';
 
 				  ?></div>
 					</div>
