@@ -201,3 +201,19 @@ begin
 insert into contratlocation(idreservation,idlogement,createdate) values(new.idreservation,new.idlogement,sysdate());
 end //
 delimiter ;
+
+
+drop trigger if exists demoteuser;
+delimiter //
+create trigger demoteuser 
+after update on user
+for each row 
+begin 
+declare demo text;
+select demote into demo from user where user.id=old.id;
+if demo='oui'
+then 
+delete from logement where logement.id=old.id;
+end if;
+end //
+delimiter ;
