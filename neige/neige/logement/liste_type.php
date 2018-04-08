@@ -60,7 +60,7 @@ require("bddconnect.php");
 		{
 
 		?>
-			<h3>Verifier la disponibilité</h3></br>
+		<!--	<h3>Verifier la disponibilité</h3></br>
 			<form method ="post" action ="">
 				<table>
 					<tr>
@@ -74,7 +74,7 @@ require("bddconnect.php");
 				</table>
 				</br>
 					<button type="submit" class="btn btn-success" name="choisirdate">Valider</button>
-			</form>
+			</form>   -->
 			<?php
 		}
 		else {
