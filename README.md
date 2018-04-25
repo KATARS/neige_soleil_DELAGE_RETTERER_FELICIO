@@ -6,7 +6,7 @@ Projet Neige & Soleil
     - Listes 100%
     - Actions 99,9% 1 trigger
     - Droit d'acces 100%
- - Espace Perso 85%
+ - Espace Perso 100%
     - Inscription 100%
     - Connection 100%
     - Demande de status 100%
@@ -15,7 +15,7 @@ Projet Neige & Soleil
     - Droit d'acces 100%
     - "Mes reservations" 100%
  - Reservation 100%
-    - Reserver 99% (doublons encore possible, a regler)
+    - Reserver 100%
     - Dates 100%
     - Contrat 100%
  - DESIGN
