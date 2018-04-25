@@ -26,10 +26,10 @@ else {
               <a class="nav-link active" href="../logement/liste_type.php">Catalogue</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="apropos.html">A propos</a>
+              <a class="nav-link active" href="../apropos.html">A propos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="contact.php">Contact</a>
+              <a class="nav-link active" href="../contact.php">Contact</a>
             </li>
             <li class="nav-item" >
               <div class="alert alert-info" role="alert">
