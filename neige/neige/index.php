@@ -1,8 +1,10 @@
 <?php
 session_start();
 ?>
+
 <html>
   <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
@@ -20,7 +22,7 @@ session_start();
               <a class="nav-link active" href="./logement/liste_type.php">Catalogue</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="apropos.php">A propos</a>
+              <a class="nav-link active" href="apropos.html">A propos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="contact.php">Contact</a>
@@ -76,15 +78,4 @@ session_start();
         </div>
     </center>
   </body>
-  <footer>
-    <div class="contenair">
-    <div class="d-flex p-2">
-      <div class="d-flex justify-content-between p-2">
-      <div class="p-2">Flex Item</div>
-      <div class="p-2">Flex Item</div>
-      <div class="p-2">Flex Item</div>
-    </div>
-  </div>
-  </div>
-</footer>
 </html>

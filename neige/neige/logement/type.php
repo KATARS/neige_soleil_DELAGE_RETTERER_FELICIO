@@ -44,7 +44,7 @@ if(isset($_GET['idtype']) AND $_GET['idtype'] > 0)
 ?>
 <html>
 <head><!-- haut de la page -->
-	<meta charset="utf-8">
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
@@ -63,7 +63,7 @@ if(isset($_GET['idtype']) AND $_GET['idtype'] > 0)
 						<a class="nav-link active" href="liste_type.php">Catalogue</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href="../apropos.php">A propos</a>
+						<a class="nav-link active" href="../apropos.html">A propos</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active" href="../contact.php">Contact</a>
@@ -93,7 +93,7 @@ if(isset($_GET['idtype']) AND $_GET['idtype'] > 0)
 		  		<img src="../profil/'.$donnees["photo"].'" alt="Card image"></a>
 					<h3>'.$donnees["titre"].'</h3>
 					<h3>'.$donnees["emplacement"].'</h3>
-					<h3>a partir de '.$donnees["prix"].'/jour</h3>
+					<h3>A partir de '.$donnees["prix"].'€/jour</h3>
 
 					<a href="logement.php?idlogement='.$donnees["idlogement"].'" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Reservez des maintenant</a>
 				</div>

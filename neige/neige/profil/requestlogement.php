@@ -38,16 +38,6 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0) //recupere id de session si i
       $insertlogement->bindValue(10, $createdate, PDO::PARAM_STR);
       $insertlogement->execute();
 
-      $insertrequest = $bdd->prepare('INSERT INTO request(id,email,createdate,idlogement)
-      VALUES(?,?,?,?)') or die(print_r($bdd->errorInfo()));
-  		$insertrequest->bindValue(1, $id, PDO::PARAM_INT);
-    	$insertrequest->bindValue(2, $email, PDO::PARAM_STR);
-    	$insertrequest->bindValue(3, $createdate, PDO::PARAM_STR);
-      $insertrequest->bindValue(4, $idlogement, PDO::PARAM_INT);
-
-
-      $insertrequest->execute();
-      //$contrat->execute();
 
     	echo "<h6>Bien ajouté à notre catalogue</h6>";
     }

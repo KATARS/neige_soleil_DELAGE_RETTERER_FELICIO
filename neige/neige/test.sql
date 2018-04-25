@@ -47,7 +47,7 @@ create table logement(
         id              int ,
         photo           text ,
         createdate      date ,
-        idcontratlog    int ,
+        idcontratlog int,
         status enum("valide","invalide","en attente") DEFAULT 'en attente',
         primary key (idlogement )
 )ENGINE=InnoDB;
@@ -111,6 +111,16 @@ create table contratlogement(
         primary key (idcontratlog )
 )ENGINE=InnoDB;
 
+create table contact(
+        idmessage int (11) auto_increment  not null ,
+        nom text,
+        prenom text,
+        email varchar(150),
+        message text,
+        createdate   date ,
+        primary key (idmessage )
+)ENGINE=InnoDB;
+
 ALTER TABLE reservation ADD CONSTRAint FK_reservation_id FOREIGN KEY (id) REFERENCES user(id);
 ALTER TABLE reservation ADD CONSTRAint FK_reservation_idcontratloc FOREIGN KEY (idcontratloc) REFERENCES contratlocation(idcontratloc);
 ALTER TABLE logement ADD CONSTRAint FK_logement_idtype FOREIGN KEY (idtype) REFERENCES type(idtype);
@@ -137,9 +147,11 @@ INSERT into `user` (`id`, `nom`, `prenom`, `email`, `password`, `civilite`, `adr
   (3, 'BLANC', 'Jean', 'jean@blanc.fr', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mr', '24 rue bien', 'MARSEILLES', 13001, '0745676858', '1969-03-06', 1, '2018-04-04');
 
 INSERT into `logement` (`idlogement`, `titre`, `emplacement`, `etage`, `prix`, `taille`, `idtype`, `caracteristique`, `id`, `photo`, `createdate`, `idcontratlog`, `status`) VALUES
-  (1, 'Chalet', 'Pyrénnées', '1er', '30', '100', 2, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', NULL, 'valide'),
-  (2, 'Appartement Rustique', 'Jura', '3e', '28', '70', 1, 'Rustique, chaleureux, et plein ouest sur le flanc de la montagne. ', 1, './photos/61f30745a786ad5604c0bacf2ba0118d', '2018-04-03', NULL, 'valide'),
-  (3, 'Maison en Bois', 'Massif Central', '2 etages', '20', '145', 3, 'Dans un coin calme, au milieu de la nature', 1, './photos/0f113d9fde4be7527e057cd604db040a', '2018-04-04', NULL, 'valide');
+(1, 'Chalet', 'Pyrénnées', '1er', '30', '100', 2, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', NULL, 'valide'),
+(2, 'Appartement Rustique', 'Jura', '3e', '28', '70', 1, 'Rustique, chaleureux, et plein ouest sur le flanc de la montagne. ', 1, './photos/61f30745a786ad5604c0bacf2ba0118d', '2018-04-03', NULL, 'valide'),
+(3, 'Maison en Bois', 'Massif Central', '2 etages', '20', '145', 3, 'Dans un coin calme, au milieu de la nature', 1, './photos/0f113d9fde4be7527e057cd604db040a', '2018-04-04', NULL, 'valide'),
+(4, 'Appartement', 'Vosges', '3e', '34', '63', 1, 'Exposé sud', 1, './photos/81d4003c390ad84970aa5e9490258312', '2018-04-05', NULL, 'valide'),
+(5, 'Appartement', 'Alpes', '4e', '20', '100', 1, 'En zone rurale, proche des accès pistes', 1, './photos/eeb0b64ffb0d59468dde3737e74512a7', '2018-04-25', NULL, 'valide');
 
 drop trigger if exists updaterequest;
 delimiter //
@@ -202,17 +214,16 @@ insert into contratlocation(idreservation,idlogement,createdate) values(new.idre
 end //
 delimiter ;
 
-
 drop trigger if exists demoteuser;
 delimiter //
-create trigger demoteuser 
+create trigger demoteuser
 after update on user
-for each row 
-begin 
+for each row
+begin
 declare demo text;
 select demote into demo from user where user.id=old.id;
 if demo='oui'
-then 
+then
 delete from logement where logement.id=old.id;
 end if;
 end //

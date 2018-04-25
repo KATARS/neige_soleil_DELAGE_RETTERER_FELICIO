@@ -26,7 +26,7 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
 ?>
 <html>
     <head>
-        <meta charset="utf-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
@@ -48,7 +48,7 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
                 <a class="nav-link active" href="liste_type.php">Catalogue</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="../apropos.php">A propos</a>
+                <a class="nav-link active" href="../apropos.html">A propos</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="../contact.php">Contact</a>

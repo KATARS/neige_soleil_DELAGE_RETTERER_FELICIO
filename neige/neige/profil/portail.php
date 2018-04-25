@@ -8,6 +8,7 @@ else {
  ?>
 <html>
 <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
@@ -25,7 +26,7 @@ else {
               <a class="nav-link active" href="../logement/liste_type.php">Catalogue</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="apropos.php">A propos</a>
+              <a class="nav-link active" href="apropos.html">A propos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="contact.php">Contact</a>
@@ -37,7 +38,7 @@ else {
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Espace personnel</a></li>
+            <li><a class="btn disabled" href="#"><span class="glyphicon glyphicon-user"></span> Espace personnel</a></li>
           </ul>
         </div>
       </nav>

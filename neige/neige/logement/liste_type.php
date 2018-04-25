@@ -7,7 +7,7 @@ require("bddconnect.php");
 ?>
 <html>
 	<head><!-- haut de la page -->
-		<meta charset="utf-8">
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
 		<link href="../style.css" rel="stylesheet" type="text/css">
@@ -21,10 +21,10 @@ require("bddconnect.php");
 		</div>
 					<ul class="nav navbar-nav">
 						<li class="nav-item">
-							<a class="nav-link active" href="liste_type.php">Catalogue</a>
+							<a class="btn disabled" href="liste_type.php">Catalogue</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="../apropos.php">A propos</a>
+							<a class="nav-link active" href="../apropos.html">A propos</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link active" href="../contact.php">Contact</a>
@@ -58,24 +58,6 @@ require("bddconnect.php");
 
 		if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 		{
-
-		?>
-		<!--	<h3>Verifier la disponibilité</h3></br>
-			<form method ="post" action ="">
-				<table>
-					<tr>
-						<td><label for="datearr">Date Debut : </label></td>
-						<td><input type="date" name="datearr" required></td>
-					</tr>
-					<tr>
-						<td><label for="datedep">Date Fin : </label></td>
-						<td><input type="date" name="datedep" required></td>
-					</tr>
-				</table>
-				</br>
-					<button type="submit" class="btn btn-success" name="choisirdate">Valider</button>
-			</form>   -->
-			<?php
 		}
 		else {
 			echo "<h5>Vous devrez vous connecter pour reserver<h5>";
