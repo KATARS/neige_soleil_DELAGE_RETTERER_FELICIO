@@ -171,7 +171,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       case 4:
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
-        $reponse = $bdd->prepare('SELECT * FROM request INNER JOIN logement ON request.status = "En attente" AND request.idlogement IS NOT NULL AND request.idlogement = logement.idlogement;');
+        $reponse = $bdd->prepare('SELECT * FROM request INNER JOIN logement ON request.idlogement = logement.idlogement WHERE request.status = "En attente" AND request.idlogement IS NOT NULL;');
         $reponse->execute(); //recupere toute les info du logement qui correspond a id de session en cours
         ?>
         <table border="2">

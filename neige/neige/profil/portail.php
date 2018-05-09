@@ -33,7 +33,7 @@ else {
             </li>
             <li class="nav-item" >
               <div class="alert alert-info" role="alert">
-                  <strong>-30% jusqu'au 03/06/2018</strong> sur les chalets familiales
+                  <strong>-30% jusqu'au 03/06/2018</strong> sur les chalets familiaux
               </div>
             </li>
           </ul>
@@ -44,10 +44,10 @@ else {
       </nav>
       <center>
   <h1 class="display-1">Espace Personnel</h1>
-  <h1 class="display-2">Inscrivez vous afin de pouvoir louer un hébérgement</h2>
+  <h1 class="display-2">Inscrivez vous afin de pouvoir louer un hébergement</h2>
   <h2 class="display-2">Ou bien proposez votre bien à la location !</h2>
   <div class="btn-group btn-group-justified">
-    <a  class="btn btn-primary" href="portail.php?page=1">Connection</a>
+    <a  class="btn btn-primary" href="portail.php?page=1">Connexion</a>
     <a  class="btn btn-primary" href="portail.php?page=2">Inscription</a>
   </div>
   <?php

@@ -55,7 +55,7 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
               </li>
               <li class="nav-item" >
                 <div class="alert alert-info" role="alert">
-                    <strong>-30% jusqu'au 03/06/2018</strong> sur les chalets familiales
+                    <strong>-30% jusqu'au 03/06/2018</strong> sur les chalets familiaux
                 </div>
               </li>
             </ul>

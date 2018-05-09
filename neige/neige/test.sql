@@ -4,10 +4,10 @@ create database neige;
 
 create table user(
         id         int (11) auto_increment  not null ,
+        civilite   enum('Mr','Mme'),
         nom        text ,
         prenom     text ,
         email      varchar (150) ,
-        password   text ,
         adresse    text ,
         ville      text ,
         cp         int ,
@@ -15,7 +15,7 @@ create table user(
         datebirth  date ,
         status     int ,
         createdate date ,
-        civilite enum('Mr','Mme'),
+        password   text ,
         primary key (id ) ,
         unique (email )
 )ENGINE=InnoDB;
@@ -58,18 +58,6 @@ create table type(
         primary key (idtype )
 )ENGINE=InnoDB;
 
-create table requestuser(
-        idrequ int (11) auto_increment  not null ,
-        idreq  int not null ,
-        primary key (idrequ ,idreq )
-)ENGINE=InnoDB;
-
-create table requestlogement(
-        idreql int (11) auto_increment  not null ,
-        idreq  int not null ,
-        primary key (idreql ,idreq )
-)ENGINE=InnoDB;
-
 create table request(
         idreq      int (11) auto_increment  not null ,
         createdate date ,
@@ -78,21 +66,6 @@ create table request(
         idlogement int ,
         status enum('En attente','Valide logement','Invalide logement','Valide user','Invalide user') DEFAULT 'En attente',
         primary key (idreq )
-)ENGINE=InnoDB;
-
-create table admin(
-        id int not null ,
-        primary key (id )
-)ENGINE=InnoDB;
-
-create table client(
-        id int not null ,
-        primary key (id )
-)ENGINE=InnoDB;
-
-create table proprietaire(
-        id int not null ,
-        primary key (id )
 )ENGINE=InnoDB;
 
 create table contratlocation(
@@ -121,19 +94,16 @@ create table contact(
         primary key (idmessage )
 )ENGINE=InnoDB;
 
-ALTER TABLE reservation ADD CONSTRAint FK_reservation_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE reservation ADD CONSTRAint FK_reservation_idcontratloc FOREIGN KEY (idcontratloc) REFERENCES contratlocation(idcontratloc);
-ALTER TABLE logement ADD CONSTRAint FK_logement_idtype FOREIGN KEY (idtype) REFERENCES type(idtype);
-ALTER TABLE logement ADD CONSTRAint FK_logement_idcontratlog FOREIGN KEY (idcontratlog) REFERENCES contratlogement(idcontratlog);
-ALTER TABLE requestuser ADD CONSTRAint FK_requestuser_idreq FOREIGN KEY (idreq) REFERENCES request(idreq);
-ALTER TABLE requestlogement ADD CONSTRAint FK_requestlogement_idreq FOREIGN KEY (idreq) REFERENCES request(idreq);
-ALTER TABLE request ADD CONSTRAint FK_request_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE admin ADD CONSTRAint FK_admin_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE client ADD CONSTRAint FK_client_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE proprietaire ADD CONSTRAint FK_proprietaire_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE contratlocation ADD CONSTRAint FK_contratlocation_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
-ALTER TABLE contratlocation ADD CONSTRAint FK_contratlocation_idreservation FOREIGN KEY (idreservation) REFERENCES reservation(idreservation);
-ALTER TABLE contratlogement ADD CONSTRAint FK_contratlogement_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE reservation ADD constraint FK_reservation_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE reservation ADD constraint FK_reservation_idcontratloc FOREIGN KEY (idcontratloc) REFERENCES contratlocation(idcontratloc);
+ALTER TABLE logement ADD constraint FK_logement_idtype FOREIGN KEY (idtype) REFERENCES type(idtype);
+ALTER TABLE logement ADD constraint FK_logement_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE logement ADD constraint FK_logement_idcontratlog FOREIGN KEY (idcontratlog) REFERENCES contratlogement(idcontratlog);
+ALTER TABLE request ADD constraint FK_request_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE contratlocation ADD constraint FK_contratlocation_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
+ALTER TABLE contratlocation ADD constraint FK_contratlocation_idreservation FOREIGN KEY (idreservation) REFERENCES reservation(idreservation);
+ALTER TABLE contratlogement ADD constraint FK_contratlogement_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE contratlogement ADD constraint FK_contratlogement_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
 
 
 INSERT into type(idtype,nom) VALUES
@@ -143,15 +113,28 @@ INSERT into type(idtype,nom) VALUES
 
 INSERT into `user` (`id`, `nom`, `prenom`, `email`, `password`, `civilite`, `adresse`, `ville`, `cp`, `tel`, `datebirth`, `status`, `createdate`) VALUES
   (1, 'DETEST', 'Joe', 'joe@test.fr', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mr', '27 rue Hector Bleu', 'VILLTANEUSE', 95250, '0134567542', '1985-03-06', 9, '2018-03-04'),
-  (2, 'BADI', 'Bado', 'bado@mail.com', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mme', '43 rue Victor Vert', 'CROSNES', 91300, '0645342858', '1976-05-16', 0, '2018-03-04'),
+  (2, 'ARIST', 'Christian', 'christian@mail.com', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mme', '43 rue Victor Vert', 'CROSNES', 91300, '0645342858', '1976-05-16', 0, '2018-03-04'),
   (3, 'BLANC', 'Jean', 'jean@blanc.fr', '9cf95dacd226dcf43da376cdb6cbba7035218921', 'Mr', '24 rue bien', 'MARSEILLES', 13001, '0745676858', '1969-03-06', 1, '2018-04-04');
 
 INSERT into `logement` (`idlogement`, `titre`, `emplacement`, `etage`, `prix`, `taille`, `idtype`, `caracteristique`, `id`, `photo`, `createdate`, `idcontratlog`, `status`) VALUES
-(1, 'Chalet', 'Pyrénnées', '1er', '30', '100', 2, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', NULL, 'valide'),
-(2, 'Appartement Rustique', 'Jura', '3e', '28', '70', 1, 'Rustique, chaleureux, et plein ouest sur le flanc de la montagne. ', 1, './photos/61f30745a786ad5604c0bacf2ba0118d', '2018-04-03', NULL, 'valide'),
-(3, 'Maison en Bois', 'Massif Central', '2 etages', '20', '145', 3, 'Dans un coin calme, au milieu de la nature', 1, './photos/0f113d9fde4be7527e057cd604db040a', '2018-04-04', NULL, 'valide'),
-(4, 'Appartement', 'Vosges', '3e', '34', '63', 1, 'Exposé sud', 1, './photos/81d4003c390ad84970aa5e9490258312', '2018-04-05', NULL, 'valide'),
-(5, 'Appartement', 'Alpes', '4e', '20', '100', 1, 'En zone rurale, proche des accès pistes', 1, './photos/eeb0b64ffb0d59468dde3737e74512a7', '2018-04-25', NULL, 'valide');
+(1, 'Chalet', 'Pyrénnées', '1er', '100', '62', 2, 'Beau', 1, './photos/c8eb3be435008b7d22e4225287de602c', '2018-03-04', NULL, 'valide'),
+(2, 'Appartement Rustique', 'Jura', '3e', '135', '70', 1, 'Rustique, chaleureux, et plein ouest sur le flanc de la montagne. ', 2, './photos/61f30745a786ad5604c0bacf2ba0118d', '2018-04-03', NULL, 'valide'),
+(3, 'Maison en Bois', 'Massif Central', '2 etages', '20', '145', 3, 'Dans un coin calme, au milieu de la nature', 2, './photos/0f113d9fde4be7527e057cd604db040a', '2018-04-04', NULL, 'valide'),
+(4, 'Appartement Moderne', 'Vosges', '3e', '104', '63', 1, 'Exposé sud', 2, './photos/81d4003c390ad84970aa5e9490258312', '2018-04-05', NULL, 'valide'),
+(5, 'Appartement', 'Alpes', '4e', '82', '23', 1, 'En zone rurale, proche des accès pistes', 1, './photos/eeb0b64ffb0d59468dde3737e74512a7', '2018-04-25', NULL, 'valide');
+
+INSERT into `contratlogement` (`idcontratlog`,`id`,`idlogement`,`createdate`) VALUES
+(1, 1, 1, '2018-03-03'),
+(2, 2, 2, '2018-03-05'),
+(3, 2, 3, '2018-03-05'),
+(4, 2, 4, '2018-03-05'),
+(5, 1, 5, '2018-04-06');
+
+UPDATE `logement` SET idcontratlog = 1 WHERE idlogement = 1;
+UPDATE `logement` SET idcontratlog = 2 WHERE idlogement = 2;
+UPDATE `logement` SET idcontratlog = 3 WHERE idlogement = 3;
+UPDATE `logement` SET idcontratlog = 4 WHERE idlogement = 4;
+UPDATE `logement` SET idcontratlog = 5 WHERE idlogement = 5;
 
 drop trigger if exists updaterequest;
 delimiter //
@@ -214,17 +197,15 @@ insert into contratlocation(idreservation,idlogement,createdate) values(new.idre
 end //
 delimiter ;
 
-drop trigger if exists demoteuser;
+drop trigger if exists gestcontratlog;
 delimiter //
-create trigger demoteuser
-after update on user
+create trigger gestcontratlog
+after update on logement
 for each row
 begin
-declare demo text;
-select demote into demo from user where user.id=old.id;
-if demo='oui'
+insert into contratlogement(id,idlogement,createdate) values(new.id,new.idlogement,sysdate());
 then
-delete from logement where logement.id=old.id;
-end if;
+  update logement set idcontratlog=new.idcontratlog;
+  where idlogement=old.idlogement;
 end //
 delimiter ;
