@@ -1,10 +1,10 @@
 Projet Neige & Soleil
-  - Version Final 1.0
+  - Version Final 1.1.1
   
  
- - Panel Admin 99.9%
+ - Panel Admin 100%
     - Listes 100%
-    - Actions 99,9% 1 trigger
+    - Actions 100%
     - Droit d'acces 100%
  - Espace Perso 100%
     - Inscription 100%
