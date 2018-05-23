@@ -203,9 +203,14 @@ create trigger gestcontratlog
 after update on logement
 for each row
 begin
-insert into contratlogement(id,idlogement,createdate) values(new.id,new.idlogement,sysdate());
+declare validite text;
+select status into validite
+from logement where logement.id=new.id;
+if validite ='valide'
 then
-  update logement set idcontratlog=new.idcontratlog;
-  where idlogement=old.idlogement;
+insert into contratlogement(id,idlogement,createdate) values(new.id,new.idlogement,sysdate());
+update logement set idcontratlog=new.idcontratlog
+where contratlogement.idlogement=logement.idlogement;
+end if ;
 end //
 delimiter ;
