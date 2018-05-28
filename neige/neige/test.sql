@@ -94,18 +94,6 @@ create table contact(
         primary key (idmessage )
 )ENGINE=InnoDB;
 
-ALTER TABLE reservation ADD constraint FK_reservation_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE reservation ADD constraint FK_reservation_idcontratloc FOREIGN KEY (idcontratloc) REFERENCES contratlocation(idcontratloc);
-ALTER TABLE logement ADD constraint FK_logement_idtype FOREIGN KEY (idtype) REFERENCES type(idtype);
-ALTER TABLE logement ADD constraint FK_logement_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE logement ADD constraint FK_logement_idcontratlog FOREIGN KEY (idcontratlog) REFERENCES contratlogement(idcontratlog);
-ALTER TABLE request ADD constraint FK_request_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE contratlocation ADD constraint FK_contratlocation_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
-ALTER TABLE contratlocation ADD constraint FK_contratlocation_idreservation FOREIGN KEY (idreservation) REFERENCES reservation(idreservation);
-ALTER TABLE contratlogement ADD constraint FK_contratlogement_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE contratlogement ADD constraint FK_contratlogement_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
-
-
 INSERT into type(idtype,nom) VALUES
   (1,"Appartement"),
   (2,"Chalet"),
@@ -135,6 +123,17 @@ UPDATE `logement` SET idcontratlog = 2 WHERE idlogement = 2;
 UPDATE `logement` SET idcontratlog = 3 WHERE idlogement = 3;
 UPDATE `logement` SET idcontratlog = 4 WHERE idlogement = 4;
 UPDATE `logement` SET idcontratlog = 5 WHERE idlogement = 5;
+
+ALTER TABLE reservation ADD constraint FK_reservation_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE reservation ADD constraint FK_reservation_idcontratloc FOREIGN KEY (idcontratloc) REFERENCES contratlocation(idcontratloc);
+ALTER TABLE logement ADD constraint FK_logement_idtype FOREIGN KEY (idtype) REFERENCES type(idtype);
+ALTER TABLE logement ADD constraint FK_logement_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE logement ADD constraint FK_logement_idcontratlog FOREIGN KEY (idcontratlog) REFERENCES contratlogement(idcontratlog);
+ALTER TABLE request ADD constraint FK_request_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE contratlocation ADD constraint FK_contratlocation_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
+ALTER TABLE contratlocation ADD constraint FK_contratlocation_idreservation FOREIGN KEY (idreservation) REFERENCES reservation(idreservation);
+ALTER TABLE contratlogement ADD constraint FK_contratlogement_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE contratlogement ADD constraint FK_contratlogement_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
 
 drop trigger if exists updaterequest;
 delimiter //
