@@ -213,3 +213,23 @@ where contratlogement.idlogement=logement.idlogement;
 end if ;
 end //
 delimiter ;
+
+
+DELIMITER |
+CREATE PROCEDURE afficher_contratlog_idprop (IN p_id INT)  
+BEGIN
+    SELECT idcontratlog,id,idlogement,createdate 
+    FROM contratlogement
+    WHERE id = p_id;
+END |
+DELIMITER ;
+
+
+DELIMITER |
+CREATE PROCEDURE afficher_contratloc_idres (IN p_idreservation INT)  
+BEGIN
+    SELECT idcontratloc,idreservation,idlogement,createdate 
+    FROM contratlocation
+    WHERE idreservation = p_idreservation;
+END |
+DELIMITER ;
