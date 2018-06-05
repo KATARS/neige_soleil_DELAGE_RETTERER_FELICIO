@@ -1,5 +1,5 @@
 Projet Neige & Soleil
-  - Version Final 1.1.1
+  - Version Final 1.2
   
  
  - Panel Admin 100%
@@ -24,3 +24,5 @@ Projet Neige & Soleil
     - Fiche logement 100%
     - Espace Perso 100%
     - Panel Admin 100%
+    
+    Commentaires dans le code source
