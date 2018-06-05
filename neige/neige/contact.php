@@ -18,7 +18,7 @@ if(isset($_POST['execute'])) //submit
   $contact->bindValue(3, $email, PDO::PARAM_STR);
   $contact->bindValue(4, $message, PDO::PARAM_STR);
   $contact->bindValue(5, $createdate, PDO::PARAM_STR);
-  $contact->execute();
+  $contact->execute(); //ajoute un message
 }
 ?>
 <html>

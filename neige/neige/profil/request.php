@@ -52,8 +52,8 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       case 1:
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
-        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "En attente" AND idlogement IS NULL;');
-        $reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
+        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "En attente" AND idlogement IS NULL;'); //affiche demande de status en attente
+        $reponse->execute();
         ?>
           <table border="2">
             <tr>
@@ -76,7 +76,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             if(isset($_POST['Valider']))
             {
               $id = $_POST['id'];
-              $update = $bdd->prepare("UPDATE request SET request.status='Valide user' WHERE idreq = ?");
+              $update = $bdd->prepare("UPDATE request SET request.status='Valide user' WHERE idreq = ?"); //autorise le status
               $update->bindValue(1, $id, PDO::PARAM_INT);
               $update->execute();
               echo "<h6>Reussie</h6>";
@@ -84,7 +84,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             if(isset($_POST['Refuser']))
             {
               $id = $_POST['id'];
-              $delete = $bdd->prepare("UPDATE request SET request.status='Invalide user' WHERE idreq = ?");
+              $delete = $bdd->prepare("UPDATE request SET request.status='Invalide user' WHERE idreq = ?"); //refuse le status
               $delete->bindValue(1, $id, PDO::PARAM_INT);
               $delete->execute();
               echo "<h6>Reussie</h6>";
@@ -107,8 +107,8 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       case 2:
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
-        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "Valide user";');
-        $reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
+        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "Valide user";'); //affiche demande autorisée
+        $reponse->execute();
         ?>
           <table border="2">
             <tr>
@@ -139,8 +139,8 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       case 3:
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
-        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "Invalide user";');
-        $reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
+        $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "Invalide user";'); //affiche demande refusée
+        $reponse->execute();
         ?>
           <table border="2">
             <tr>
@@ -172,7 +172,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
         $reponse = $bdd->prepare('SELECT * FROM request INNER JOIN logement ON request.idlogement = logement.idlogement WHERE request.status = "En attente" AND request.idlogement IS NOT NULL;');
-        $reponse->execute(); //recupere toute les info du logement qui correspond a id de session en cours
+        $reponse->execute(); //affiche les demandes d'ajout de logement en attente
         ?>
         <table border="2">
           <tr>
@@ -202,7 +202,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             if(isset($_POST['Valide']))
             {
               $id = $_POST['id'];
-              $update = $bdd->prepare("UPDATE request SET request.status='Valide logement' WHERE idreq = ?");
+              $update = $bdd->prepare("UPDATE request SET request.status='Valide logement' WHERE idreq = ?"); //autorise l'ajout
               $update->bindValue(1, $id, PDO::PARAM_INT);
               $update->execute();
               echo "<h6>Reussie</h6>";
@@ -210,7 +210,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
             if(isset($_POST['Invalide']))
             {
               $id = $_POST['id'];
-              $delete = $bdd->prepare("UPDATE request SET request.status='Invalide logement' WHERE idreq = ?");
+              $delete = $bdd->prepare("UPDATE request SET request.status='Invalide logement' WHERE idreq = ?"); //refuse l'ajout
               $delete->bindValue(1, $id, PDO::PARAM_INT);
               $delete->execute();
               echo "<h6>Reussie</h6>";
@@ -234,7 +234,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
         $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "Valide logement";');
-        $reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
+        $reponse->execute(); //affiche demande d'ajout autorisée
         ?>
         <table border="2">
           <tr>
@@ -268,7 +268,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
       {
         $reponse = $bdd->prepare('SELECT * FROM request WHERE status = "Invalide logement";');
-        $reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
+        $reponse->execute(); //affiche demande refusée
         ?>
           <table border="2">
             <tr>

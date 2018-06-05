@@ -6,7 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script src="calendrier/jquery-ui.js"></script>
 <script src="lang/datepicker-fr.js"></script>
-<script>
+<script> //script datepicker
     $(function() {
 	<!--$.datepicker.setDefaults($.datepicker.regional['fi']);-->
     $( "#from" ).datepicker({
@@ -33,17 +33,18 @@
   if (isset($_POST['book'])) {
   	if(empty($errors))
   	{
-  		require("calendrier/config.php");
+  		require("calendrier/config.php");//cherche la config
 
-  		$start_day = intval(strtotime(htmlspecialchars($_POST["start_day"])));
-  		$start_time = (60*60*intval(htmlspecialchars($_POST["start_hour"]))) + (60*intval(htmlspecialchars($_POST["start_minute"])));
+      //recupere les données des formulaires
+      $start_day = intval(strtotime(htmlspecialchars($_POST["start_day"]))); //convertit en int
+  		$start_time = (60*60*intval(htmlspecialchars($_POST["start_hour"]))) + (60*intval(htmlspecialchars($_POST["start_minute"]))); //calcule les millisecondes
   		$end_day = intval(strtotime(htmlspecialchars($_POST["end_day"])));
   		$end_time = (60*60*intval(htmlspecialchars($_POST["end_hour"]))) + (60*intval(htmlspecialchars($_POST["end_minute"])));
 
-  		$start_epoch = $start_day + $start_time;
-  		$end_epoch = $end_day + $end_time;
+  		$start_epoch = $start_day + $start_time; //definition de la période avec les jours
+  		$end_epoch = $end_day + $end_time; //definition de la période avec les millisecondes
   		// prevent double booking
-  		$sql = $bdd->prepare("SELECT * FROM reservation WHERE idlogement = ? AND (start_day>=$start_day OR end_day>=$start_day) AND canceled=0;");
+  		$sql = $bdd->prepare("SELECT * FROM reservation WHERE idlogement = ? AND (start_day>=$start_day OR end_day>=$start_day)");
       $sql->bindValue(1,$idlogement,PDO::PARAM_INT);
   		$sql->execute();
   		if ($sql->rowCount() > 0) {
@@ -51,7 +52,7 @@
   			while($row = $sql->fetch()) {
   				for ($i = $start_epoch; $i <= $end_epoch; $i=$i+600) {
   					if ($i>($row["start_day"]+$row["start_time"]) && $i<($row["end_day"]+$row["end_time"])) {
-            $sql->closeCursor();
+            $sql->closeCursor();//verification doublons
             }
   				}
   			} echo "Le bien n'est pas disponible pour la période séléctionnée";
@@ -68,7 +69,7 @@
       $insertres->bindValue(7, $id, PDO::PARAM_INT);
       $insertres->bindValue(8, $name, PDO::PARAM_STR);
       $insertres->execute();
-      echo "Reservation réussie";
+      echo "Reservation réussie"; //ajoute reservation
     }
   	}
   }
@@ -81,9 +82,9 @@
 			<table style="width: 70%">
 					<td>Reservation:</td>
 					<td>
-			         <input id="from" name="start_day" required="" type="text" /></td>
+			         <input name="start_day" required="" type="date" /></td>
 					<td>-</td>
-					<td><input id="to" name="end_day" required="" type="text" /></td>
+					<td><input name="end_day" required="" type="date" /></td>
 				</tr>
         <tr>
 					<td>&nbsp;</td>
@@ -199,17 +200,17 @@ jQuery(document).ready(function(){
 
         /** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
         $calendar.= str_repeat('<p> </p>',2);
-        $current_epoch = mktime(0,0,0,$month,$list_day,$year);
+        $current_epoch = mktime(0,0,0,$month,$list_day,$year);//recupere date aujourd'hui
 
         $idlogement = $_GET['idlogement'];
-        $sql = $bdd->prepare("SELECT * FROM reservation WHERE idlogement = ? AND $current_epoch BETWEEN start_day AND end_day;");
+        $sql = $bdd->prepare("SELECT * FROM reservation WHERE idlogement = ? AND $current_epoch BETWEEN start_day AND end_day;");//empeche la reservation avant
         $sql->bindValue(1, $idlogement, PDO::PARAM_INT);
         $sql->execute();
 
           if ($sql->rowCount() > 0) {
-            // output data of each row
+
             while($row = $sql->fetch()) {
-            if($row["canceled"] == 1) $calendar .= "<font color=\"red\"><s>";
+              //affiche info dans calendrier
               $calendar .= "<b>Non Disponible<br>";
 
               if($current_epoch == $row["start_day"] AND $current_epoch != $row["end_day"]) {
@@ -221,7 +222,6 @@ jQuery(document).ready(function(){
               if($current_epoch != $row["start_day"] AND $current_epoch != $row["end_day"]) {
                 $calendar .= "";
               }
-            if($row["canceled"] == 1) $calendar .= "</s></font>";
             }
         } else {
             $calendar .= "";
@@ -256,7 +256,7 @@ jQuery(document).ready(function(){
     /* all done, return result */
     return $calendar;
   }
-  require("calendrier/config.php");
+  require("calendrier/config.php"); //affiche les mois suivants ...
 
   $d = new DateTime(date("Y-m-d"));
   echo '<h3>' . $months[$d->format('n')-1] . ' ' . $d->format('Y') . '</h3>';

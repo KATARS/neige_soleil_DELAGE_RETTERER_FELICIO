@@ -34,10 +34,10 @@ require("bddconnect.php");
 
 if(isset($_GET['idtype']) AND $_GET['idtype'] > 0)
 {
-	$reponse = $bdd->prepare('SELECT * FROM logement WHERE idtype=? AND status = "Valide";');
+	$reponse = $bdd->prepare('SELECT * FROM logement WHERE idtype=? AND status = "Valide";'); //recupere logement par type et par status valide
 	$reponse->BindValue(1, $_GET['idtype'], PDO::PARAM_INT);
 	$reponse->execute();
-	$cat = $bdd->prepare('SELECT * FROM type where idtype=?');
+	$cat = $bdd->prepare('SELECT * FROM type where idtype=?'); //recupere info du type
 	$cat->BindValue(1,$_GET['idtype'], PDO::PARAM_INT);
 	$cat->execute();
 }
@@ -83,8 +83,8 @@ if(isset($_GET['idtype']) AND $_GET['idtype'] > 0)
 		<h2>Bien disponible</h2>
 	</br>
 	<div class="index-content">
-		<?php
-		while ($donnees = $reponse->fetch())
+		<?php //affiche les fiches logements de la categorie selectionnée
+		while ($donnees = $reponse->fetch()) //boucle pour afficher tout les resultats
 		{
 		echo '
 		<a href="logement.php?idlogement='.$donnees["idlogement"].'">

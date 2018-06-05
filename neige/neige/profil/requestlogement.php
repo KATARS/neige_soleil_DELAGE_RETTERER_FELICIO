@@ -6,13 +6,13 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0) //recupere id de session si i
   {
     $type = $_POST['type'];
     $titre = $_POST['titre'];
-    $emplacement = ucfirst($_POST['emplacement']);
+    $emplacement = ucfirst($_POST['emplacement']); //premier catactere en majuscule
     $etage = $_POST['etage'];
     $prix = iconv("UTF-8", "ISO-8859-1//TRANSLIT", $_POST['prix']);
     $taille = $_POST['taille'];
     $carac = $_POST['caracteristique'];
     $id = $_SESSION['id'];
-    $nom_photo = md5(uniqid($_FILES['photo']['name'])); //nom de la photo
+    $nom_photo = md5(uniqid($_FILES['photo']['name'])); //nom de la photo avec un nom hashé en md5 et un id unique
     $photo = $_FILES['photo']['tmp_name']; //photo
     $createdate = date('Y-m-d');
     $id = $_SESSION['id'];
@@ -36,7 +36,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0) //recupere id de session si i
     	$insertlogement->bindValue(8, $photo, PDO::PARAM_STR);
       $insertlogement->bindValue(9, $id, PDO::PARAM_INT);
       $insertlogement->bindValue(10, $createdate, PDO::PARAM_STR);
-      $insertlogement->execute();
+      $insertlogement->execute(); //ajoute logement
 
 
     	echo "<h6>Bien ajouté à notre catalogue</h6>";

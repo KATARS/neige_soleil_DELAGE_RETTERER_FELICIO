@@ -70,7 +70,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 	        </div>
 	      </nav><center>
 		  <h1>Espace Personnel</h1></br>
-		  <p>Bienvenue <?php echo htmlspecialchars($_SESSION['civilite']); ?>
+		  <p>Bienvenue <?php echo htmlspecialchars($_SESSION['civilite']); //affiche info de sessions transmise par connection.php?>
 				<?php echo htmlspecialchars($_SESSION['nom']); ?>
 				<?php echo htmlspecialchars($_SESSION['prenom']); ?>
 				dans votre espace personnel</p>

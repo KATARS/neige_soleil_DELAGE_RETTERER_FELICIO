@@ -9,17 +9,17 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
 
   $reponse = $bdd->prepare('SELECT * FROM logement WHERE idlogement = ? AND status = "Valide";');
   $reponse->bindValue(1, $idlogement, PDO::PARAM_INT);
-  $reponse->execute();
+  $reponse->execute(); //cherche logement valide
 
-  $data = $reponse->fetch();
+  $data = $reponse->fetch(); //met les info de la bdd dans une variable data
   $reponse->closeCursor();
 
   $id = $_SESSION['id'];
   $info = $bdd->prepare('SELECT * FROM user WHERE id = ?;');
   $info->bindValue(1, $id, PDO::PARAM_INT);
-  $info->execute();
+  $info->execute(); // recupère toute les info user
 
-  $infouser = $info->fetch();
+  $infouser = $info->fetch(); //met les info dans la variable
   $info->closeCursor();
 }
 
@@ -73,7 +73,7 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
     	<h3><span class="label label-info">Titre</span><?php echo stripslashes(htmlspecialchars($data['titre'])); ?>
         <br/>
         <span class="label label-info">Etage</span>
-        <?php echo stripslashes(htmlspecialchars($data['etage'])); ?>
+        <?php echo stripslashes(htmlspecialchars($data['etage'])); //la variable data affiche les info logement ?>
         <br/>
         <span class="label label-info">Region</span>
         <?php echo stripslashes(htmlspecialchars($data['emplacement'])); ?>
@@ -95,12 +95,9 @@ if( isset( $_GET['idlogement'] ) and $_GET['idlogement'] > 0 )
   <?php
       if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
       {
-        $name = $infouser['nom'];
-    		$iduser = $infouser['id'];
-    		$email = $infouser['email'];
+        $name = $infouser['nom']; //recupère nom via variable infouser
         $item = $data['titre'];
-        $idlogement = $data['idlogement'];
-        include("calendrier.php");
+        include("calendrier.php"); //calendrier
       }
     else {
       echo "Vous devez vous connecter pour reserver";

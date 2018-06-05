@@ -6,7 +6,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
 	if(isset($_SESSION['status']) AND $_SESSION['status'] >= 9)
   {
 		$reponse = $bdd->prepare('SELECT * FROM user WHERE status = 1');
-		$reponse->execute(); //recupere toute les info de l'user qui correspond a id de session en cours
+		$reponse->execute(); 
 		?>
 	<center>
 		<h2>Liste Propriétaire</h2></br>

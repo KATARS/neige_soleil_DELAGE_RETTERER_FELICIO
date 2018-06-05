@@ -12,7 +12,7 @@ if(isset($_SESSION['id']) AND $_SESSION['id'] > 0) //recupere id de session si i
 		$insertrequest->bindValue(1, $id, PDO::PARAM_INT);
   	$insertrequest->bindValue(2, $email, PDO::PARAM_STR);
   	$insertrequest->bindValue(3, $createdate, PDO::PARAM_STR);
-  	$insertrequest->execute();
+  	$insertrequest->execute(); //demande de status proprietaire
   	echo "<h3>Demande envoyée !</h3><p>Vous aurez une réponse sous 24h.</p>";
   }
   ?>

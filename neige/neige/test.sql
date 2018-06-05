@@ -30,8 +30,6 @@ create table reservation(
         start_time    int ,
         end_day       int ,
         end_time      int ,
-        canceled      int default 0,
-        idcontratloc  int ,
         primary key (idreservation )
 )ENGINE=InnoDB;
 
@@ -94,6 +92,18 @@ create table contact(
         primary key (idmessage )
 )ENGINE=InnoDB;
 
+ALTER TABLE reservation ADD constraint FK_reservation_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE reservation ADD constraint FK_reservation_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
+ALTER TABLE logement ADD constraint FK_logement_idtype FOREIGN KEY (idtype) REFERENCES type(idtype);
+ALTER TABLE logement ADD constraint FK_logement_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE logement ADD constraint FK_logement_idcontratlog FOREIGN KEY (idcontratlog) REFERENCES contratlogement(idcontratlog);
+ALTER TABLE request ADD constraint FK_request_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE contratlocation ADD constraint FK_contratlocation_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
+ALTER TABLE contratlocation ADD constraint FK_contratlocation_idreservation FOREIGN KEY (idreservation) REFERENCES reservation(idreservation);
+ALTER TABLE contratlogement ADD constraint FK_contratlogement_id FOREIGN KEY (id) REFERENCES user(id);
+ALTER TABLE contratlogement ADD constraint FK_contratlogement_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
+
+
 INSERT into type(idtype,nom) VALUES
   (1,"Appartement"),
   (2,"Chalet"),
@@ -123,17 +133,6 @@ UPDATE `logement` SET idcontratlog = 2 WHERE idlogement = 2;
 UPDATE `logement` SET idcontratlog = 3 WHERE idlogement = 3;
 UPDATE `logement` SET idcontratlog = 4 WHERE idlogement = 4;
 UPDATE `logement` SET idcontratlog = 5 WHERE idlogement = 5;
-
-ALTER TABLE reservation ADD constraint FK_reservation_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE reservation ADD constraint FK_reservation_idcontratloc FOREIGN KEY (idcontratloc) REFERENCES contratlocation(idcontratloc);
-ALTER TABLE logement ADD constraint FK_logement_idtype FOREIGN KEY (idtype) REFERENCES type(idtype);
-ALTER TABLE logement ADD constraint FK_logement_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE logement ADD constraint FK_logement_idcontratlog FOREIGN KEY (idcontratlog) REFERENCES contratlogement(idcontratlog);
-ALTER TABLE request ADD constraint FK_request_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE contratlocation ADD constraint FK_contratlocation_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
-ALTER TABLE contratlocation ADD constraint FK_contratlocation_idreservation FOREIGN KEY (idreservation) REFERENCES reservation(idreservation);
-ALTER TABLE contratlogement ADD constraint FK_contratlogement_id FOREIGN KEY (id) REFERENCES user(id);
-ALTER TABLE contratlogement ADD constraint FK_contratlogement_idlogement FOREIGN KEY (idlogement) REFERENCES logement(idlogement);
 
 drop trigger if exists updaterequest;
 delimiter //
@@ -202,34 +201,26 @@ create trigger gestcontratlog
 after update on logement
 for each row
 begin
-declare validite text;
-select status into validite
-from logement where logement.id=new.id;
-if validite ='valide'
-then
 insert into contratlogement(id,idlogement,createdate) values(new.id,new.idlogement,sysdate());
-update logement set idcontratlog=new.idcontratlog
-where contratlogement.idlogement=logement.idlogement;
-end if ;
 end //
 delimiter ;
 
+drop procedure if exists afficher_contratlog_idprop;
+delimiter |
+create procedure afficher_contratlog_idprop(IN p_id INT)
+begin
+  select idcontratlog,id,idlogement,createdate
+  from contratlogement
+  where id = p_id;
+end |
+delimiter ;
 
-DELIMITER |
-CREATE PROCEDURE afficher_contratlog_idprop (IN p_id INT)  
-BEGIN
-    SELECT idcontratlog,id,idlogement,createdate 
-    FROM contratlogement
-    WHERE id = p_id;
-END |
-DELIMITER ;
-
-
-DELIMITER |
-CREATE PROCEDURE afficher_contratloc_idres (IN p_idreservation INT)  
-BEGIN
-    SELECT idcontratloc,idreservation,idlogement,createdate 
-    FROM contratlocation
-    WHERE idreservation = p_idreservation;
-END |
-DELIMITER ;
+drop procedure if exists afficher_contratloc_idres;
+delimiter |
+create procedure afficher_contratloc_idres(IN p_idreservation INT)
+begin
+  select idcontratloc,idreservation,idlogement,createdate
+  from contratlocation
+  where idreservation = p_idreservation;
+end |
+delimiter ;

@@ -50,13 +50,13 @@ require("bddconnect.php");
 		<h1>Catégories</h1></br>
 		<div class="list-group">
 		<?php
-		while ($donnees = $reponse->fetch())
+		while ($donnees = $reponse->fetch())//affiche tout les types de la BDD
 		{
 			echo'<a class="list-group-item active" href="type.php?idtype='.$donnees['idtype'].'">'.stripslashes(htmlspecialchars($donnees['nom'])).'</a></br>';
 		}
-		$reponse->closeCursor();
+		$reponse->closeCursor(); //ferme la boucle
 
-		if(isset($_SESSION['id']) AND $_SESSION['id'] > 0)
+		if(isset($_SESSION['id']) AND $_SESSION['id'] > 0) //si pas d'id de session alors affiche message
 		{
 		}
 		else {

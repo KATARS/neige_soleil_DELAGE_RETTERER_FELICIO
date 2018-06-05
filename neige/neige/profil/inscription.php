@@ -10,7 +10,7 @@ if(isset($_POST['execute']))
 	$password = sha1($_POST['password']); //hash sha1
 	$password2 = sha1($_POST['password2']);
 	$adresse = $_POST['adresse'];
-	$ville = mb_strtoupper($_POST['ville']);
+	$ville = mb_strtoupper($_POST['ville']); //met tout en majuscule
 	$cp = $_POST['cp'];
 	$tel = $_POST['tel'];
 	$datebirth = $_POST['datebirth'];

@@ -20,7 +20,6 @@
       }
     });
   });  </script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <link href="../logement/calendrier/jquery-ui.css" rel="stylesheet">
 <script src="../logement/calendrier/jquery-ui.js"></script>
