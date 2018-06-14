@@ -1,4 +1,5 @@
 <head>
+
 <script>
     $(function() {
   <!--$.datepicker.setDefaults($.datepicker.regional['fi']);-->
@@ -25,6 +26,8 @@
 <link href="../logement/calendrier/jquery-ui.css" rel="stylesheet">
 <script src="../logement/calendrier/jquery-ui.js"></script>
 <link href="../logement/calendrier/style_calendrier.css" rel="stylesheet">
+      <link href="../style.css" rel="stylesheet" type="text/css">
+
 <button type="button" class="btn btn-success btn-lg" id="hideshow">Voir Calendrier</button>
 <script type="text/javascript">
 jQuery(document).ready(function(){
@@ -34,7 +37,8 @@ jQuery(document).ready(function(){
     });
 </script>
 </head>
-</body>
+<body>
+</br><center>
 <div id="content" style="display:none">
   <?php
   /* draws a calendar */
@@ -63,6 +67,8 @@ jQuery(document).ready(function(){
       $calendar.= '<td class="calendar-day-np"> </td>';
       $days_in_this_week++;
     endfor;
+	
+	
 
     /* keep going with days.... */
     for($list_day = 1; $list_day <= $days_in_month; $list_day++):
@@ -73,12 +79,12 @@ jQuery(document).ready(function(){
         /** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
         $calendar.= str_repeat('<p> </p>',2);
         $current_epoch = mktime(0,0,0,$month,$list_day,$year);
-
-        $id= $_REQUEST['id'];
-
-        $sql = $bdd->prepare("SELECT * FROM reservation WHERE id = ? AND $current_epoch BETWEEN start_day AND end_day;");
+		
+		$id= $_REQUEST['id'];
+		$sql = $bdd->prepare("SELECT * FROM reservation WHERE id = ? AND $current_epoch BETWEEN start_day AND end_day;");
         $sql->bindValue(1, $id, PDO::PARAM_INT);
         $sql->execute();
+		
 
           if ($sql->rowCount() > 0) {
             // output data of each row
