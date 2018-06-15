@@ -74,7 +74,6 @@ jQuery(document).ready(function(){
         $current_epoch = mktime(0,0,0,$month,$list_day,$year);
 
         $sql = $bdd->prepare("SELECT * FROM reservation WHERE $current_epoch BETWEEN start_day AND end_day;");
-        $sql->bindValue(1, $id, PDO::PARAM_INT);
         $sql->execute();
 
           if ($sql->rowCount() > 0) {
